@@ -11,7 +11,7 @@ import java.util.Date;
 @Component
 public class PlatformAuthorizeCodeService extends JdbcAuthorizationCodeServices {
 
-    @Value("${zzq.authorization.code.prefix:[OPEN]}")
+    @Value("${zzq.authorization.code.prefix:OPEN}")
     private String DEFAULT_CODE_PREFIX;
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");

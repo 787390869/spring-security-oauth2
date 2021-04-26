@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PlatformTokenEnhancer implements TokenEnhancer {
 
-    @Value("${zzq.access.token.prefix:[OPEN]}")
+    @Value("${zzq.access.token.prefix:OPEN}")
     private String DEFAULT_TOKEN_PREFIX;
 
     @Override

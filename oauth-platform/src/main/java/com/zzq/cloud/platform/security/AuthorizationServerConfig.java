@@ -35,6 +35,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final UserDetailsService userDetailsService;
     private final PlatformTokenEnhancer platformTokenEnhancer;
     private final PlatformUserAuthenticationConverter userAuthenticationConverter;
+    private final PlatformAuthorizeCodeService codeService;
 
     @Bean
     public TokenStore tokenStore() {
@@ -61,7 +62,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .tokenEnhancer(platformTokenEnhancer)
                 .tokenStore(tokenStore())
                 .accessTokenConverter(converter)
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
+                .authorizationCodeServices(codeService)
+        ;
     }
 
     @Override

@@ -6,7 +6,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.Map;
 
@@ -28,9 +27,5 @@ public class UserAuthController {
     public Map<String, Object> doLogin(@Valid LoginDto loginDto) {
         return authService.doLogin(loginDto);
     }
-/*
-    @RequestMapping("/login")
-    public ModelAndView loginPage() {
-        return new ModelAndView("/login");
-    }*/
+
 }

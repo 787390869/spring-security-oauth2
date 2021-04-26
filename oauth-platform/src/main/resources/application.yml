@@ -32,7 +32,7 @@ security:
 zzq:
   authorization:
     code:
-      prefix: [OPEN]
+      prefix: OPEN
   access:
     token:
-      prefix: [OPEN]
+      prefix: OPEN
