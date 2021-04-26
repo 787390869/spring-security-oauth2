@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzq.cloud.platform.mapper.sys.SysPermissionMapper">
+
+    <!-- 权限 全字段SQL -->
+    <sql id="SysPermissionSql">
+        per_id,
+        perm,
+        per_name,
+        per_desc,
+        left_value,
+        parent_id,
+        right_value,
+        layer,
+        sort,
+        icon,
+        route_path,
+        component_path,
+        is_frame,
+        is_cache,
+        type,
+        platform
+    </sql>
+
+    <!-- 权限 别名全字段SQL -->
+    <sql id="SysPermissionAliasSql">
+        sp.per_id,
+        sp.perm,
+        sp.per_name,
+        sp.per_desc,
+        sp.left_value,
+        sp.parent_id,
+        sp.right_value,
+        sp.layer,
+        sp.sort,
+        sp.icon,
+        sp.route_path,
+        sp.component_path,
+        sp.is_frame,
+        sp.is_cache,
+        sp.type,
+        sp.platform
+    </sql>
+
+    <!-- 权限 全属性结果集 -->
+    <resultMap type="com.zzq.cloud.platform.domain.sys.SysPermission" id="SysPermissionMap">
+        <result property="perId" column="per_id"/>
+        <result property="perm" column="perm"/>
+        <result property="perName" column="per_name"/>
+        <result property="perDesc" column="per_desc"/>
+        <result property="leftValue" column="left_value"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="rightValue" column="right_value"/>
+        <result property="layer" column="layer"/>
+        <result property="sort" column="sort"/>
+        <result property="icon" column="icon"/>
+        <result property="routePath" column="route_path"/>
+        <result property="componentPath" column="component_path"/>
+        <result property="isFrame" column="is_frame"/>
+        <result property="isCache" column="is_cache"/>
+        <result property="type" column="type"/>
+        <result property="platform" column="platform"/>
+    </resultMap>
+
+    <!-- 权限 全属性结果集Vo -->
+    <resultMap type="com.zzq.cloud.platform.model.vo.sys.SysPermissionVo" id="SysPermissionVoMap">
+        <result property="perId" column="per_id"/>
+        <result property="perm" column="perm"/>
+        <result property="perName" column="per_name"/>
+        <result property="perDesc" column="per_desc"/>
+        <result property="leftValue" column="left_value"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="rightValue" column="right_value"/>
+        <result property="layer" column="layer"/>
+        <result property="sort" column="sort"/>
+        <result property="icon" column="icon"/>
+        <result property="routePath" column="route_path"/>
+        <result property="componentPath" column="component_path"/>
+        <result property="isFrame" column="is_frame"/>
+        <result property="isCache" column="is_cache"/>
+        <result property="type" column="type"/>
+        <result property="platform" column="platform"/>
+    </resultMap>
+
+    <!-- 权限 全属性结果集DetailVo -->
+    <resultMap type="com.zzq.cloud.platform.model.vo.sys.SysPermissionVo" id="SysPermissionDetailVoMap">
+        <result property="perId" column="per_id"/>
+        <result property="perm" column="perm"/>
+        <result property="perName" column="per_name"/>
+        <result property="perDesc" column="per_desc"/>
+        <result property="leftValue" column="left_value"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="rightValue" column="right_value"/>
+        <result property="layer" column="layer"/>
+        <result property="sort" column="sort"/>
+        <result property="icon" column="icon"/>
+        <result property="routePath" column="route_path"/>
+        <result property="componentPath" column="component_path"/>
+        <result property="isFrame" column="is_frame"/>
+        <result property="isCache" column="is_cache"/>
+        <result property="type" column="type"/>
+        <result property="platform" column="platform"/>
+    </resultMap>
+
+    <insert id="callInsert" parameterType="com.zzq.cloud.platform.domain.sys.SysPermission" statementType="CALLABLE">
+        <![CDATA[
+        call insert_permission(
+            #{perId,mode=IN,jdbcType=BIGINT},
+            #{perm,mode=IN,jdbcType=VARCHAR},
+            #{perName,mode=IN,jdbcType=VARCHAR},
+            #{perDesc,mode=IN,jdbcType=VARCHAR},
+            #{parentId,mode=IN,jdbcType=BIGINT},
+            #{platform,mode=IN,jdbcType=INTEGER},
+            #{sort,mode=IN,jdbcType=INTEGER},
+            #{icon,mode=IN,jdbcType=VARCHAR},
+            #{routePath,mode=IN,jdbcType=VARCHAR},
+            #{componentPath,mode=IN,jdbcType=VARCHAR},
+            #{isFrame,mode=IN,jdbcType=INTEGER},
+            #{isCache,mode=IN,jdbcType=INTEGER},
+            #{type,mode=IN,jdbcType=INTEGER},
+            #{createTime,mode=IN,jdbcType=DATE},
+            #{creator,mode=IN,jdbcType=VARCHAR}
+            )
+        ]]>
+    </insert>
+</mapper>

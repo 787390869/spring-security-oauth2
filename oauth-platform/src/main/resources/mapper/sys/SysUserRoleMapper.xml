@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzq.cloud.platform.mapper.sys.SysUserRoleMapper">
+
+    <!-- 用户角色 全字段SQL -->
+    <sql id="SysUserRoleSql">
+        id,
+        user_id,
+        role_id
+    </sql>
+
+    <!-- 用户角色 别名全字段SQL -->
+    <sql id="SysUserRoleAliasSql">
+        sur.id,
+        sur.user_id,
+        sur.role_id
+    </sql>
+
+    <!-- 用户角色 全属性结果集 -->
+    <resultMap type="com.zzq.cloud.platform.domain.sys.SysUserRole" id="SysUserRoleMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+    </resultMap>
+
+    <!-- 用户角色 全属性结果集Vo -->
+    <resultMap type="com.zzq.cloud.platform.model.vo.sys.SysUserRoleVo" id="SysUserRoleVoMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+    </resultMap>
+
+    <!-- 用户角色 全属性结果集DetailVo -->
+    <resultMap type="com.zzq.cloud.platform.model.vo.sys.SysUserRoleVo" id="SysUserRoleDetailVoMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+    </resultMap>
+
+</mapper>

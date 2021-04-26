@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thtmeleaf.org">
+<head>
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <link href="css/login.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <main>
+        <div class="h-logo">
+
+        </div>
+    </main>
+</header>
+<div class="warp">
+    <div class="warp-main">
+        <div class="login">
+            <div class="loginbox">
+                <h2 class="loginbox-title">账号登录
+                    <div class="login-phone-number">
+                        <ul>
+                            <li><a>返回首页</a></li>
+                            <li>|</li>
+                            <li><a>注册</a></li>
+                        </ul>
+                    </div>
+                </h2>
+                <div class="form-warp" style="display: block">
+                    <form action="/login" method="post">
+                        <input class="r_input" type="text" name="username" placeholder="手机号/昵称/邮箱" value="zhangziqiang"/>
+                        <input class="r_input" type="password" name="password" placeholder="登录密码" value="wowangle"/>
+                        <div class="loginset">
+                            <label class="autologin">
+                                <input type="checkbox" checked="checked" value="1" name="checkBoxL"/>
+                                30天内自动登录
+                                <a class="forgotpwd" href="">忘记密码</a>
+                            </label>
+                        </div>
+
+                        <input class="login-btn" type="submit" value="登录">
+                    </form>
+                </div>
+                <p style="color: red; font-family: 幼圆; text-align: center" th:if="${param.error}"
+                   th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}">
+                </p>
+                <div class="weblogin">
+                    <div class="login-about">
+                        <a href="#">境外手机</a>
+                        <span class="sp">|</span>
+                        <a class="cmplogin" href="#">公司客户</a>
+                        <span class="sp">|</span>
+                        <a class="cardlogin" href="#">合作卡</a>
+                        <span class="sp">|</span>
+                        <a class="fuli">公司福利</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-warp" id="footer">
+    <p>
+        <a>关于我们</a>|
+        <a>联系我们</a>|
+        <a>诚聘英才</a>|
+        <a>用户建议</a>|
+        <a>合作伙伴</a>
+    </p>
+</div>
+</body>
+</html>

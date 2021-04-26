@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzq.cloud.platform.mapper.sys.SysUserMapper">
+
+    <!-- 用户 全字段SQL -->
+    <sql id="SysUserSql">
+        user_id,
+        dept_id,
+        username,
+        password,
+        phone,
+        nickname,
+        sex,
+        avator,
+        email,
+        state
+    </sql>
+
+    <!-- 用户 别名全字段SQL -->
+    <sql id="SysUserAliasSql">
+        su.user_id,
+        su.dept_id,
+        su.username,
+        su.password,
+        su.phone,
+        su.nickname,
+        su.sex,
+        su.avator,
+        su.email
+    </sql>
+
+    <!-- 用户 全属性结果集 -->
+    <resultMap type="com.zzq.cloud.platform.domain.sys.SysUser" id="SysUserMap">
+        <result property="userId" column="user_id"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="nickname" column="nickname"/>
+        <result property="sex" column="sex"/>
+        <result property="avator" column="avator"/>
+        <result property="email" column="email"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+    <!-- 用户 全属性结果集Vo -->
+    <resultMap type="com.zzq.cloud.platform.model.vo.sys.SysUserVo" id="SysUserVoMap">
+        <result property="userId" column="user_id"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="username" column="username"/>
+        <result property="phone" column="phone"/>
+        <result property="nickname" column="nickname"/>
+        <result property="sex" column="sex"/>
+        <result property="avator" column="avator"/>
+        <result property="email" column="email"/>
+        <result property="state" column="state"/>
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <!-- 用户 全属性结果集DetailVo -->
+    <resultMap type="com.zzq.cloud.platform.domain.sys.OAuthUser" id="UserDetailsMap">
+        <result property="userId" column="user_id"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password" />
+        <result property="phone" column="phone"/>
+        <result property="nickname" column="nickname"/>
+        <result property="sex" column="sex"/>
+        <result property="avator" column="avator"/>
+        <result property="email" column="email"/>
+        <result property="state" column="state"/>
+        <collection property="roles" ofType="string">
+            <result column="role" />
+        </collection>
+        <collection property="permissions" ofType="string">
+            <result column="perm" />
+        </collection>
+    </resultMap>
+
+    <select id="findByUsername" resultMap="UserDetailsMap">
+        select <include refid="SysUserAliasSql"/>,
+        sr.role, sp.perm
+        from sys_user su
+        left join sys_user_role sur on sur.user_id = su.user_id
+        left join sys_role sr on sr.role_id = sur.role_id
+        left join sys_role_permission srp on srp.role_id = sr.role_id
+        left join sys_permission sp on sp.per_id = srp.per_id
+        where su.username = #{username} and su.state = 1 and su.is_delete = 0
+    </select>
+
+    <select id="findPageByParams" resultMap="SysUserVoMap">
+        select su.* from sys_user su
+        left join sys_user_role sur on sur.user_id = su.user_id
+        left join sys_role sr on sr.role_id = sr.role_id
+        <where>
+            <if test="p.deptId != null and p.deptId != 0">
+                and su.dept_id = #{p.deptId}
+            </if>
+            <if test="p.name != null and p.name != ''">
+                and (
+                    su.username like concat('%', #{p.name}, '%')
+                    or
+                    su.nickname like concat('%', #{p.name}, '%')
+                )
+            </if>
+            <if test="p.phone != null and p.phone != ''">
+                and su.phone = #{p.phone}
+            </if>
+            <if test="p.role != null and p.role != ''">
+                and sr.role = #{p.role}
+            </if>
+            <if test="p.state != null and p.state.code != -1">
+                and su.state = #{p.state.code}
+            </if>
+        </where>
+    </select>
+</mapper>

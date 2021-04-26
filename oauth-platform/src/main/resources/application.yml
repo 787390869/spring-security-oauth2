@@ -1,0 +1,38 @@
+server:
+  port: 9500
+  undertow:
+    buffer-size: 2048
+    direct-buffers: true
+    threads:
+      io: 8
+      worker: 120
+
+spring:
+  application:
+    name: oauth-server
+  profiles:
+    active: dev
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: assign_id
+  mapper-locations: classpath*:/mapper/**/*.xml
+
+security:
+  server-ip: 127.0.0.1
+  server-address: http://${security.server-ip}:${server.port}
+  oauth2:
+    client:
+      access-token-uri: ${security.server-address}/oauth/token
+      user-authorization-uri: ${security.server-address}/auth/authorize
+    resource:
+      token-info-uri: ${security.server-address}/oauth/check_token
+
+zzq:
+  authorization:
+    code:
+      prefix: [OPEN]
+  access:
+    token:
+      prefix: [OPEN]

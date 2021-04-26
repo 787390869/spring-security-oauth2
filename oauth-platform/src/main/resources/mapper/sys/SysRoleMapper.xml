@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzq.cloud.platform.mapper.sys.SysRoleMapper">
+
+    <!-- 角色 全字段SQL -->
+    <sql id="SysRoleSql">
+        role_id,
+        role,
+        role_name,
+        role_desc,
+        sort,
+        state
+    </sql>
+
+    <!-- 角色 别名全字段SQL -->
+    <sql id="SysRoleAliasSql">
+        sr.role_id,
+        sr.role,
+        sr.role_name,
+        sr.role_desc,
+        sr.sort,
+        sr.state
+    </sql>
+
+    <!-- 角色 全属性结果集 -->
+    <resultMap type="com.zzq.cloud.platform.domain.sys.SysRole" id="SysRoleMap">
+        <result property="roleId" column="role_id"/>
+        <result property="role" column="role"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDesc" column="role_desc"/>
+        <result property="sort" column="sort"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+    <!-- 角色 全属性结果集Vo -->
+    <resultMap type="com.zzq.cloud.platform.model.vo.sys.SysRoleVo" id="SysRoleVoMap">
+        <result property="roleId" column="role_id"/>
+        <result property="role" column="role"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDesc" column="role_desc"/>
+        <result property="sort" column="sort"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+    <!-- 角色 全属性结果集DetailVo -->
+    <resultMap type="com.zzq.cloud.platform.model.vo.sys.SysRoleVo" id="SysRoleDetailVoMap">
+        <result property="roleId" column="role_id"/>
+        <result property="role" column="role"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDesc" column="role_desc"/>
+        <result property="sort" column="sort"/>
+        <result property="state" column="state"/>
+    </resultMap>
+
+</mapper>
