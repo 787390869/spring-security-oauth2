@@ -11,9 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class LoginController {
 
-    @RequestMapping("/login")
+    @RequestMapping("/login_page")
     public ModelAndView login() {
-        return new ModelAndView("login");
+        return new ModelAndView("login_page");
     }
+
+    @RequestMapping("/index")
+    public ModelAndView index() { return new ModelAndView("index"); };
 
 }
