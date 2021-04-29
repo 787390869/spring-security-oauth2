@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzq.cloud.platform.mapper.auth.OAuthClientDetailMapper">
+
+    <sql id="OauthClientDetailsSql">
+        client_id,
+        resource_ids,
+        client_secret,
+        scope,
+        authorized_grant_types,
+        web_server_redirect_uri,
+        authorities,
+        access_token_validity,
+        refresh_token_validity,
+        additional_information,
+        autoapprove
+    </sql>
+
+    <!-- 应用 别名全字段SQL -->
+    <sql id="OauthClientDetailsAliasSql">
+        ocd.client_id,
+        ocd.resource_ids,
+        ocd.client_secret,
+        ocd.scope,
+        ocd.authorized_grant_types,
+        ocd.web_server_redirect_uri,
+        ocd.authorities,
+        ocd.access_token_validity,
+        ocd.refresh_token_validity,
+        ocd.additional_information,
+        ocd.autoapprove
+    </sql>
+
+    <!-- 应用 全属性结果集 -->
+    <resultMap type="com.zzq.cloud.platform.domain.auth.OAuthClientDetail" id="OauthClientDetailsMap">
+        <result property="clientId" column="client_id"/>
+        <result property="resourceIds" column="resource_ids"/>
+        <result property="clientSecret" column="client_secret"/>
+        <result property="scope" column="scope"/>
+        <result property="authorizedGrantTypes" column="authorized_grant_types"/>
+        <result property="webServerRedirectUri" column="web_server_redirect_uri"/>
+        <result property="authorities" column="authorities"/>
+        <result property="accessTokenValidity" column="access_token_validity"/>
+        <result property="refreshTokenValidity" column="refresh_token_validity"/>
+        <result property="additionalInformation" column="additional_information"/>
+        <result property="autoapprove" column="autoapprove"/>
+    </resultMap>
+
+    <resultMap type="com.zzq.cloud.platform.model.vo.auth.OAuthClientDetailVo" id="OAuthClientDetailVoMap">
+        <result property="clientId" column="client_id"/>
+        <result property="resourceIds" column="resource_ids"/>
+        <result property="authorizedGrantTypes" column="authorized_grant_types"/>
+        <result property="webServerRedirectUri" column="web_server_redirect_uri"/>
+        <result property="authorities" column="authorities"/>
+        <result property="accessTokenValidity" column="access_token_validity"/>
+        <result property="refreshTokenValidity" column="refresh_token_validity"/>
+        <result property="additionalInformation" column="additional_information"/>
+        <result property="autoapprove" column="autoapprove"/>
+    </resultMap>
+
+    <select id="findMyApplication" resultMap="OAuthClientDetailVoMap">
+        select ocd.client_id,
+               ocd.resource_ids,
+               ocd.authorized_grant_types,
+               ocd.web_server_redirect_uri,
+               ocd.authorities,
+               ocd.access_token_validity,
+               ocd.refresh_token_validity,
+               ocd.additional_information,
+               ocd.autoapprove
+        from oauth_client_details ocd
+        left join sys_user_application sua on sua.client_id = ocd.client_id
+        where sua.user_id = #{userId} and sua.is_delete = 0
+        <if test="clientId != null">
+            and ocd.client_id = #{clientId}
+        </if>
+    </select>
+</mapper>

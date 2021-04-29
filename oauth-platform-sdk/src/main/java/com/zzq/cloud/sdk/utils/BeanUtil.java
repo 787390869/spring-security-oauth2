@@ -1,5 +1,6 @@
 package com.zzq.cloud.sdk.utils;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.util.Assert;
@@ -7,6 +8,8 @@ import org.springframework.util.Assert;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Desciption copy
@@ -83,5 +86,25 @@ public class BeanUtil extends org.apache.commons.beanutils.BeanUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Map toMap(Object bean) {
+        try {
+            return BeanUtils.describe(bean);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new HashMap();
+        }
+    }
+
+    public static <T> T toBean(Map<String, T> map, Class<T> clazz) {
+        T bean = null;
+        try {
+            bean = clazz.newInstance();
+            BeanUtils.populate(bean, map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bean;
     }
 }

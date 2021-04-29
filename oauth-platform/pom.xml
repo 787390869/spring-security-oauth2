@@ -18,6 +18,10 @@
             <artifactId>oauth-platform-sdk</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.warrenstrange</groupId>
+            <artifactId>googleauth</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>p6spy</groupId>

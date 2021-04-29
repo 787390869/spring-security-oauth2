@@ -6,8 +6,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.zzq.cloud.platform.service.auth.impl.GoogleCodeRepository;
 import com.zzq.cloud.sdk.converter.*;
 import com.zzq.cloud.sdk.security.SecurityArgumentResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -45,6 +48,9 @@ public class WebAppConfig implements WebMvcConfigurer {
 
     @Value("${spring.jackson.date-format:yyyy-MM-dd HH:mm:ss}")
     private String pattern;
+
+    @Autowired
+    private GoogleCodeRepository googleCodeRepository;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -136,5 +142,12 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Bean
     public Converter<String, LocalDateTime> localDateTimeConverter() {
         return new String2LocalDateTimeConverter();
+    }
+
+    @Bean(name = "googleAuthenticator")
+    public GoogleAuthenticator googleAuthenticator() {
+        GoogleAuthenticator googleAuthenticator = new GoogleAuthenticator();
+        googleAuthenticator.setCredentialRepository(googleCodeRepository);
+        return googleAuthenticator;
     }
 }

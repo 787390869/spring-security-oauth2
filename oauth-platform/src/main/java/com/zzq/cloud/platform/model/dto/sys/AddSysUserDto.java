@@ -45,6 +45,7 @@ public class AddSysUserDto {
     private String phone;
 
     /** 用户昵称 */
+    @NotBlank(message = "用户昵称不能为空")
     @ApiModelProperty(value = "用户昵称")
     private String nickname;
 
@@ -63,10 +64,6 @@ public class AddSysUserDto {
     /** 启用状态 0-未启用 1-已启用 */
     @ApiModelProperty(value = "启用状态 0-未启用 1-已启用")
     private Integer state;
-
-    @NotNull(message = "用户酒店集合不能为空")
-    @ApiModelProperty(value = "用户酒店Ids", example = "[1,2,3]", required = true)
-    private List<Long> hotelIds;
 
 
 }

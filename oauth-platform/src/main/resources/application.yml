@@ -40,3 +40,4 @@ zzq:
   access:
     token:
       prefix: OPEN
+  google: true

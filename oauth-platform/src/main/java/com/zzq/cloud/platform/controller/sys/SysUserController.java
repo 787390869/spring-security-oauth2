@@ -6,6 +6,7 @@ import com.zzq.cloud.platform.model.dto.sys.QuerySysUserDto;
 import com.zzq.cloud.platform.model.enums.UserSexEnum;
 import com.zzq.cloud.platform.model.enums.UserStateEnum;
 import com.zzq.cloud.platform.model.vo.sys.SysUserVo;
+import com.zzq.cloud.platform.service.auth.IGoogleCodeService;
 import com.zzq.cloud.platform.service.sys.ISysUserService;
 import com.zzq.cloud.sdk.annotations.User;
 import com.zzq.cloud.sdk.base.SecurityUser;
@@ -54,5 +55,4 @@ public class SysUserController {
     public Integer state(@PathVariable Long userId) {
         return userService.state(userId);
     }
-
 }

@@ -13,7 +13,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
@@ -40,11 +42,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public TokenStore tokenStore() {
         RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
-        tokenStore.setSerializationStrategy(new PlatformJsonSerializationStrategy());
+        //tokenStore.setSerializationStrategy(new PlatformJsonSerializationStrategy());
         return tokenStore;
     }
 
     @Bean
+    public OAuth2RequestFactory requestFactory() {
+        return new DefaultOAuth2RequestFactory(jdbcClientDetails());
+    }
+
+    @Bean(name = "jdbcClientDetails")
     public ClientDetailsService jdbcClientDetails() {
         return new JdbcClientDetailsService(dataSource);
     }

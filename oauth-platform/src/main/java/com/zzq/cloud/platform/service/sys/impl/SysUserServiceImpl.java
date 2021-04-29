@@ -9,6 +9,7 @@ import com.zzq.cloud.platform.model.dto.sys.AddSysUserDto;
 import com.zzq.cloud.platform.model.dto.sys.QuerySysUserDto;
 import com.zzq.cloud.platform.model.enums.UserStateEnum;
 import com.zzq.cloud.platform.model.vo.sys.SysUserVo;
+import com.zzq.cloud.platform.service.auth.IGoogleCodeService;
 import com.zzq.cloud.platform.service.sys.ISysUserService;
 import com.zzq.cloud.sdk.framework.BusiException;
 import com.zzq.cloud.sdk.framework.E;
@@ -31,6 +32,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private final SysUserMapper sysUserMapper;
     private final PasswordEncoder passwordEncoder;
 
+    private final IGoogleCodeService googleCodeService;
+
     @Override
     public IPage<SysUserVo> queryPage(QuerySysUserDto params) {
         return sysUserMapper.findPageByParams(params.page(), params);
@@ -41,7 +44,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public Integer add(AddSysUserDto user) {
 
         QueryWrapper<SysUser> query = new QueryWrapper<>();
-        query.eq("username", user.getUsername());
+        query.eq("username", user.getUsername()).or().eq("nickname", user.getNickname());
         if (ObjectUtils.isNotEmpty(sysUserMapper.selectOne(query))) {
             throw new BusiException(E.INVALID_PARAMETER, "已存在该用户");
         }
@@ -49,6 +52,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser newUser = new SysUser();
         BeanUtil.copyAllProperties(newUser, user);
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        newUser.setGoogleKey(googleCodeService.genKey(user.getUsername()));
         int i = sysUserMapper.insert(newUser);
 
         return i;

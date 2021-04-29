@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author ZZQ
@@ -23,6 +24,10 @@ public class LoginDto {
     @NotBlank(message = "无效的AppSecret")
     @ApiModelProperty(value = "平台秘钥", example = "secret", required = true)
     private String appSecret;
+
+    @NotNull(message = "谷歌验证码不能为空")
+    @ApiModelProperty("谷歌验证码")
+    private Integer googleCode;
 
     @NotBlank(message = "无效的用户名")
     @ApiModelProperty(value = "平台秘钥", example = "admin", required = true)

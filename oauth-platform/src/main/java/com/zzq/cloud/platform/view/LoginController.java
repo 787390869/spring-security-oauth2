@@ -11,9 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class LoginController {
 
-    @RequestMapping("/login_page")
+    @RequestMapping("/login")
     public ModelAndView login() {
-        return new ModelAndView("login_page");
+        return new ModelAndView("login");
     }
 
     @RequestMapping("/index")

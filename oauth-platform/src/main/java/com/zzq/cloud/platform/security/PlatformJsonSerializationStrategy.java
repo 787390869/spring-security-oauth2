@@ -33,6 +33,8 @@ public class PlatformJsonSerializationStrategy implements RedisTokenStoreSeriali
         config.putDeserializer(OAuth2Authentication.class, new PlatformAuthenticationSerializer());
         config.addAccept("org.springframework.security.oauth2.provider.");
         config.addAccept("org.springframework.security.oauth2.provider.client");
+        config.addAccept("org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails");
+        config.addAccept("org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken");
 
         TypeUtils.addMapping("org.springframework.security.oauth2.provider.OAuth2Authentication",
                 OAuth2Authentication.class);

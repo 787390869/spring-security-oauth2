@@ -37,7 +37,7 @@ public class E {
     public final static int INVALID_PASSWORD = 97;
 
     //权限不足
-    public final static int UN_AUTHORIZED = 202;
+    public final static int UN_AUTHORIZED = 403;
 
     // 资源未找到
     public final static int NOT_FOUND = 404;

@@ -25,4 +25,8 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     /** 分页查询用户信息 */
     IPage<SysUserVo> findPageByParams(Page<?> page, @Param("p") QuerySysUserDto params);
+
+    /** 通过用户名查询密码 */
+    String findPasswordById(Long userId);
+
 }

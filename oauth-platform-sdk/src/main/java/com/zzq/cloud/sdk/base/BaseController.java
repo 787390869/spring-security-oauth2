@@ -18,9 +18,7 @@ public class BaseController {
 
     /** 获取登录用户 */
     protected SecurityUser getUser() {
-        SecurityContext context = SecurityContextHolder.getContext();
         Object principal = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(JSONObject.toJSONString(principal));
         if (principal instanceof UsernamePasswordAuthenticationToken) {
             UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) principal;
             SecurityUser securityUser = JSON.parseObject(JSON.toJSONString(authentication.getPrincipal()), SecurityUser.class);

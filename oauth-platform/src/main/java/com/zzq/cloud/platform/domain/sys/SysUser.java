@@ -42,6 +42,9 @@ public class SysUser extends BaseEntity {
     @ApiModelProperty(value = "用户账户")
     private String username;
 
+    @ApiModelProperty(value = "原密码")
+    private String originalPassword;
+
     /** 密码 */
     @ApiModelProperty(value = "密码")
     private String password;
@@ -65,6 +68,9 @@ public class SysUser extends BaseEntity {
     /** 邮箱 */
     @ApiModelProperty(value = "邮箱")
     private String email;
+
+    @ApiModelProperty(value = "谷歌key")
+    private String googleKey;
 
     /** 启用状态 0-未启用 1-已启用 */
     @ApiModelProperty(value = "启用状态 0-未启用 1-已启用")

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzq.cloud.platform.mapper.auth.UserApplicationMapper">
+
+    <!-- 用户应用 全字段SQL -->
+    <sql id="UserApplicationSql">
+        id,
+        user_id,
+        client_id
+    </sql>
+
+    <!-- 用户应用 别名全字段SQL -->
+    <sql id="UserApplicationAliasSql">
+        sua.id,
+        sua.user_id,
+        sua.client_id
+    </sql>
+
+    <!-- 用户应用 全属性结果集 -->
+    <resultMap type="com.zzq.cloud.platform.domain.auth.UserApplication" id="UserApplicationMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="clientId" column="client_id"/>
+    </resultMap>
+
+</mapper>
