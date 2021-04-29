@@ -32,7 +32,9 @@
         <lombok.version>1.18.18</lombok.version>
 
         <!-- 工具包 -->
+        <jsoup.version>1.13.1</jsoup.version>
         <bouncycastle.version>1.64</bouncycastle.version>
+        <apache.httpclient.version>4.5.13</apache.httpclient.version>
         <apache.common.poi.version>5.0.0</apache.common.poi.version>
         <apache.common.lang3.version>3.9</apache.common.lang3.version>
         <apache.common.beanutil.version>1.9.4</apache.common.beanutil.version>
@@ -87,9 +89,19 @@
         <dependencies>
             <!-- 加解密 && 验证码 -->
             <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15on</artifactId>
                 <version>${bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${apache.httpclient.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.penggle</groupId>
