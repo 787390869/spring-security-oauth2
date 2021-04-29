@@ -22,8 +22,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(IOAuthResource.PATH + "/**")
             .and()
                 .authorizeRequests()
-                .antMatchers(IOAuthResource.PATH + "/**")
-            .authenticated();
+                .antMatchers(IOAuthResource.PATH + "/**").authenticated()
+            .and()
+                .cors()
+            .and()
+                .csrf().disable();;
     }
 
     @Override

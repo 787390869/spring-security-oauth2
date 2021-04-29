@@ -38,7 +38,6 @@ import java.util.stream.Collectors;
 public class ExceptionControllerAdvice {
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = BusiException.class)
     public Result exceptionData(BusiException e) {
         log.error(e.getMessage(), e);
@@ -46,7 +45,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Result httpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.error(e.getMessage(), e);
@@ -54,7 +52,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = BindException.class)
     public Result handleBindException(BindException e) {
         log.error("参数校验异常", e);
@@ -66,7 +63,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public Result handleMethodArgumentNotValid(MethodArgumentNotValidException e) {
         log.error("参数校验异常", e);
@@ -78,7 +74,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public Result methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         log.error("参数类型异常", e);
@@ -86,7 +81,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = ConstraintViolationException.class)
     public Result handleBindGetException(ConstraintViolationException e) {
         log.error("参数校验异常", e);
@@ -98,7 +92,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = HttpMessageConversionException.class)
     public Result exceptionData(HttpMessageConversionException e) {
         log.error("参数转换错误", e);
@@ -106,7 +99,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = DuplicateKeyException.class)
     public Result exceptionDuplication(Exception e) {
         log.error(e.getMessage(), e);
@@ -114,7 +106,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public Result notSupportException(Exception e) {
         log.error(e.getMessage(), e);
@@ -122,7 +113,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(value = AccessDeniedException.class)
     public Result accessDenied(Exception e) {
         log.error(e.getMessage(), e);
@@ -130,7 +120,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = NullPointerException.class)
     public Result nullPoint(Exception e) {
         log.error(e.getMessage(), e);
@@ -138,7 +127,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public Result illegalArgumentException(IllegalArgumentException e) {
         log.error(e.getMessage(), e);
@@ -146,7 +134,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public Result httpMediaTypeNotSupportException(HttpMediaTypeNotSupportedException e) {
         log.error(e.getMessage(), e);
@@ -154,7 +141,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingServletRequestPartException.class)
     public Result missingServletRequestPartException(MissingServletRequestPartException e) {
         log.error(e.getMessage(), e);
@@ -162,7 +148,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public Result missingServletRequestParameterException(MissingServletRequestParameterException e) {
         log.error(e.getMessage(), e);
@@ -170,7 +155,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PersistenceException.class)
     public Result persistenceException(PersistenceException e) {
         log.error(e.getMessage(), e);
@@ -178,7 +162,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(SQLException.class)
     public Result SQLException(SQLException e) {
         log.error(e.getMessage(), e);
@@ -186,7 +169,6 @@ public class ExceptionControllerAdvice {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public Result exception(Exception e) {
         log.error(e.getMessage(), e);

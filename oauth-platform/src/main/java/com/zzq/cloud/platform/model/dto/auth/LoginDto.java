@@ -25,7 +25,6 @@ public class LoginDto {
     @ApiModelProperty(value = "平台秘钥", example = "secret", required = true)
     private String appSecret;
 
-    @NotNull(message = "谷歌验证码不能为空")
     @ApiModelProperty("谷歌验证码")
     private Integer googleCode;
 

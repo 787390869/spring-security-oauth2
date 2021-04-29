@@ -10,7 +10,11 @@ import com.zzq.cloud.sdk.framework.IOAuthResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
@@ -26,6 +30,7 @@ import javax.validation.Valid;
 public class AuthorizationController extends BaseController {
 
     private final IAuthService authService;
+    private final ConsumerTokenServices consumerTokenServices;
 
     @ApiOperation("获取授权码")
     @GetMapping("/code")
@@ -33,6 +38,15 @@ public class AuthorizationController extends BaseController {
         dto.setUserId(user.getUserId());
         dto.setUsername(user.getUsername());
         return authService.getAuthorizationCode(dto);
+    }
+
+    @ApiOperation("登出")
+    @PostMapping("/logout")
+    public Boolean doLogout() {
+        String accessToken = this.getAccessToken();
+        if (StringUtils.isNotBlank(accessToken))
+            return consumerTokenServices.revokeToken(accessToken);
+        return Boolean.FALSE;
     }
 
 }
