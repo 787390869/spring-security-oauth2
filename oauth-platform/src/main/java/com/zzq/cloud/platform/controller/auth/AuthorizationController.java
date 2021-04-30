@@ -37,7 +37,7 @@ public class AuthorizationController extends BaseController {
     public AuthorizationVo code(@Valid AuthorizationCodeDto dto, @User SecurityUser user) {
         dto.setUserId(user.getUserId());
         dto.setUsername(user.getUsername());
-        return authService.getAuthorizationCode(dto);
+        return authService.getAuthorizationCode(dto, this.isAdmin());
     }
 
     @ApiOperation("登出")

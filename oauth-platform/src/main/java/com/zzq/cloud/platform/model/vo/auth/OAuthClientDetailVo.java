@@ -24,6 +24,12 @@ public class OAuthClientDetailVo extends BaseVo {
     @ApiModelProperty("客户端标识")
     private String clientId;
 
+    @ApiModelProperty("客户端名称")
+    private String clientName;
+
+    @ApiModelProperty("组号")
+    private Long groupId;
+
     @ApiModelProperty("资源id")
     private String resourceIds;
 
@@ -53,5 +59,11 @@ public class OAuthClientDetailVo extends BaseVo {
 
     @ApiModelProperty("授权模式")
     private List<String> grantTypes;
+
+    @ApiModelProperty("发布状态")
+    private Integer isPublish;
+
+    @ApiModelProperty("是否具备权限")
+    private Integer isAuth;
 
 }

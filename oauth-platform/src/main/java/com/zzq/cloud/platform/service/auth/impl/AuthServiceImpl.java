@@ -39,6 +39,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -124,12 +125,14 @@ public class AuthServiceImpl implements IAuthService {
     }
 
     @Override
-    public AuthorizationVo getAuthorizationCode(AuthorizationCodeDto dto) {
+    public AuthorizationVo getAuthorizationCode(AuthorizationCodeDto dto, Boolean isAdmin) {
         // 加载账户应用
-        OAuthClientDetailVo clientDetail = clientDetailMapper.findMyApplication(dto.getUserId(), dto.getAppId());
+        OAuthClientDetailVo clientDetail = clientDetailMapper.findMyApplication(isAdmin ? null : dto.getUserId(), dto.getAppId());
         if (ObjectUtils.isEmpty(clientDetail)) throw new BusiException(E.INVALID_PASSWORD, "您暂无该应用权限!");
+        if (StringUtils.isEmpty(clientDetail.getWebServerRedirectUri())) throw new BusiException("未找到重定向地址!");
+        if (clientDetail.getIsPublish().compareTo(1) != 0) throw new BusiException("应用未上架!");
         Set<String> grantTypes = Arrays.stream(clientDetail.getAuthorizedGrantTypes().split(",")).collect(Collectors.toSet());
-        if (!grantTypes.contains("authorization_code")) throw new BusiException(E.UN_AUTHORIZED, "该应用不允许此授权模式!");
+        if (!grantTypes.contains("authorization_code")) throw new BusiException(E.UN_AUTHORIZED, "该应用不支持此授权模式!");
         if (!clientDetail.getAutoapprove()) throw new BusiException(E.UN_AUTHORIZED, "该应用不允许自动授权!");
 
         // 加载账户签名信息
@@ -143,7 +146,7 @@ public class AuthServiceImpl implements IAuthService {
         authorizationRequest.setApproved(Boolean.TRUE);
         OAuth2Request storedOAuth2Request = oAuth2RequestFactory.createOAuth2Request(authorizationRequest);
         OAuth2Authentication combinedAuth = new OAuth2Authentication(storedOAuth2Request, authentication);
-        return new AuthorizationVo(codeService.createAuthorizationCode(combinedAuth));
+        return new AuthorizationVo(codeService.createAuthorizationCode(combinedAuth), clientDetail.getWebServerRedirectUri());
     }
 
     private Map<String, Object> sendAuthReq(LinkedMultiValueMap<String, String> header, LinkedMultiValueMap<String, String> body) {

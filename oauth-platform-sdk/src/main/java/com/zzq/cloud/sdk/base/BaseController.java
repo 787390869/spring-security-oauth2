@@ -2,6 +2,7 @@ package com.zzq.cloud.sdk.base;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.zzq.cloud.sdk.utils.BeanUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -67,6 +68,10 @@ public class BaseController {
             return oAuth2Authentication.getOAuth2Request().getClientId();
         }
         return "";
+    }
+
+    protected Boolean isAdmin() {
+        return this.getUser().getRoles().contains("admin") || this.getUser().getRoles().contains("ROLE_admin");
     }
 
 

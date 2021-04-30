@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzq.cloud.platform.mapper.sys.SysAppGroupMapper">
+
+    <!-- 应用分组 全字段SQL -->
+    <sql id="SysAppGroupSql">
+        id,
+        group_name,
+    </sql>
+
+    <!-- 应用分组 别名全字段SQL -->
+    <sql id="SysAppGroupAliasSql">
+        sag.id,
+        sag.group_name
+    </sql>
+
+    <!-- 应用分组 全属性结果集 -->
+    <resultMap type="com.zzq.cloud.platform.domain.sys.SysAppGroup" id="SysAppGroupMap">
+        <result property="id" column="id"/>
+        <result property="groupName" column="group_name"/>
+    </resultMap>
+
+    <!-- 应用分组 全属性结果集Vo -->
+    <resultMap type="com.zzq.cloud.platform.model.vo.sys.SysAppGroupVo" id="SysAppGroupVoMap">
+        <result property="id" column="id"/>
+        <result property="groupName" column="group_name"/>
+    </resultMap>
+
+    <!-- 应用分组 全属性结果集DetailVo -->
+    <resultMap type="com.zzq.cloud.platform.model.vo.auth.ApplicationVo" id="SysAppGroupDetailVoMap">
+        <result property="id" column="id"/>
+        <result property="groupName" column="group_name"/>
+        <collection property="apps" column="groupId = id" select="com.zzq.cloud.platform.mapper.auth.OAuthClientDetailMapper.findByGroupId" />
+    </resultMap>
+
+    <select id="findByParams" resultMap="SysAppGroupDetailVoMap">
+        select id, group_name
+        from sys_app_group
+        where is_delete = 0
+        order by create_time desc
+    </select>
+</mapper>

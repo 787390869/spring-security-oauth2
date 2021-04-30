@@ -21,5 +21,5 @@ public interface IAuthService {
 
     Map<String, Object> doRefresh(RefreshDto refreshDto);
 
-    AuthorizationVo getAuthorizationCode(AuthorizationCodeDto params);
+    AuthorizationVo getAuthorizationCode(AuthorizationCodeDto params, Boolean isAdmin);
 }

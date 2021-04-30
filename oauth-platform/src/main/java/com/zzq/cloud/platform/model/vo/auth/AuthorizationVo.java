@@ -17,4 +17,7 @@ public class AuthorizationVo {
     @ApiModelProperty("授权码")
     private String authorizationCode;
 
+    @ApiModelProperty("重定向地址")
+    private String redirectUri;
+
 }

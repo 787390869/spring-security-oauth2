@@ -23,6 +23,13 @@ public class OAuthClientDetail extends BaseEntity {
     @ApiModelProperty("客户端标识")
     private String clientId;
 
+    @ApiModelProperty("客户端名称")
+    private String clientName;
+
+
+    @ApiModelProperty("应用组号")
+    private Long groupId;
+
     @ApiModelProperty("资源id")
     private String resourceIds;
 
@@ -58,6 +65,9 @@ public class OAuthClientDetail extends BaseEntity {
 
     @ApiModelProperty("自动授权")
     private Boolean autoapprove;
+
+    @ApiModelProperty("上架状态")
+    private Integer isPublish;
 
 
 }

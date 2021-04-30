@@ -10,9 +10,14 @@ spring:
       initial-size: 10
       min-idle: 10
       max-active: 40
-      max-wait: 60000
-      test-while-idle: false
+      max-wait: 15
+      connection-init-sqls: 'SET NAMES utf8mb4'
+      validation-query: 'SELECT 1'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
       pool-prepared-statements: false #mysql建议关闭 oracle开启
+      max-open-prepared-statements: 20
       filters: stat,wall
       filter:
         wall:

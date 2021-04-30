@@ -61,7 +61,9 @@
     </resultMap>
 
     <select id="findMyApplication" resultMap="OAuthClientDetailVoMap">
-        select ocd.client_id,
+        select distinct(ocd.client_id),
+               ocd.client_name,
+               ocd.group_id,
                ocd.resource_ids,
                ocd.authorized_grant_types,
                ocd.web_server_redirect_uri,
@@ -69,12 +71,55 @@
                ocd.access_token_validity,
                ocd.refresh_token_validity,
                ocd.additional_information,
-               ocd.autoapprove
+               ocd.autoapprove,
+               ocd.is_publish
         from oauth_client_details ocd
         left join sys_user_application sua on sua.client_id = ocd.client_id
-        where sua.user_id = #{userId} and sua.is_delete = 0
+        where sua.is_delete = 0 and ocd.is_delete = 0
         <if test="clientId != null">
             and ocd.client_id = #{clientId}
         </if>
+        <if test="userId != null">
+            and sua.userId = #{userId}
+        </if>
+    </select>
+
+    <select id="findByParams" resultMap="OAuthClientDetailVoMap">
+        select distinct(ocd.client_id),
+               ocd.group_id,
+               ocd.client_name,
+               ocd.authorized_grant_types,
+               ocd.web_server_redirect_uri,
+               ocd.icon,
+               ocd.is_publish
+        from oauth_client_details ocd
+        left join sys_user_application sua on sua.client_id = ocd.client_id
+        where ocd.is_delete = 0
+        <if test="p.userId != null and p.userId != 0">
+            and sua.user_id = #{p.userId}
+        </if>
+        <if test="p.clientName != null and p.clientName !=''">
+            and ocd.client_name like concat('%', #{p.clientName}, '%')
+        </if>
+        <if test="p.isPublish != null and p.isPublish != -1">
+            and ocd.is_publish = #{p.isPublish}
+        </if>
+    </select>
+
+    <select id="findByGroupId" resultMap="OAuthClientDetailVoMap">
+        select ocd.client_id,
+               ocd.group_id,
+               ocd.client_name,
+               ocd.resource_ids,
+               ocd.authorized_grant_types,
+               ocd.web_server_redirect_uri,
+               ocd.authorities,
+               ocd.access_token_validity,
+               ocd.refresh_token_validity,
+               ocd.additional_information,
+               ocd.autoapprove,
+               ocd.is_publish
+        from oauth_client_details ocd
+        where ocd.is_delete = 0 and group_id = #{groupId}
     </select>
 </mapper>
