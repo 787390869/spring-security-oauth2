@@ -63,7 +63,7 @@ public class OAuthClientDetailVo extends BaseVo {
     @ApiModelProperty("发布状态")
     private Integer isPublish;
 
-    @ApiModelProperty("是否具备权限")
-    private Integer isAuth;
+    @ApiModelProperty("是否支持授权码模式")
+    private Boolean isAuth;
 
 }

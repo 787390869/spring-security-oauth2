@@ -33,6 +33,9 @@ public class ApplicationServiceImpl extends ServiceImpl<OAuthClientDetailMapper,
     @Override
     public List<ApplicationVo> queryList(QueryApplicationDto params) {
         List<OAuthClientDetailVo> apps = clientDetailMapper.findByParams(params);
+        apps.forEach(app -> {
+            app.setIsAuth(app.getAuthorizedGrantTypes().contains("authorization_code"));
+        });
         Map<Long, List<OAuthClientDetailVo>> appMap = apps.stream().collect(Collectors.groupingBy(OAuthClientDetailVo::getGroupId));
         List<ApplicationVo> groupsApps = new ArrayList<>();
         appMap.forEach((key, val) -> {
@@ -51,7 +54,12 @@ public class ApplicationServiceImpl extends ServiceImpl<OAuthClientDetailMapper,
     @Override
     public IPage<OAuthClientDetailVo> queryPage(QueryApplicationDto params, Boolean isAdmin) {
         if (!isAdmin) params.setUserId(params.getUserId());
-        return clientDetailMapper.findByParams(params.page(), params);
+        IPage<OAuthClientDetailVo> apps = clientDetailMapper.findByParams(params.page(), params);
+        List<OAuthClientDetailVo> vos = apps.getRecords().stream().peek(app -> {
+            app.setIsAuth(app.getAuthorizedGrantTypes().indexOf("authorization_code") > 0);
+        }).collect(Collectors.toList());
+        apps.setRecords(vos);
+        return apps;
     }
 
     @Override
