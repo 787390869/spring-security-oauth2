@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zzq.cloud.platform.domain.sys.SysUser;
 import com.zzq.cloud.platform.model.dto.sys.AddSysUserDto;
+import com.zzq.cloud.platform.model.dto.sys.EditUserDto;
 import com.zzq.cloud.platform.model.dto.sys.QuerySysUserDto;
 import com.zzq.cloud.platform.model.vo.sys.SysUserVo;
 
@@ -17,6 +18,8 @@ public interface ISysUserService extends IService<SysUser> {
     IPage<SysUserVo> queryPage(QuerySysUserDto params);
 
     Integer add(AddSysUserDto user);
+
+    Integer editUser(EditUserDto userDto);
 
     Integer state(Long userId);
 

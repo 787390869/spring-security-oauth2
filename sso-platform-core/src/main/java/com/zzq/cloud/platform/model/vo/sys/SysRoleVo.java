@@ -1,5 +1,6 @@
 package com.zzq.cloud.platform.model.vo.sys;
 
+import com.zzq.cloud.platform.model.vo.BaseVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -19,12 +20,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "SysRoleVo", description = "角色")
-public class SysRoleVo {
+public class SysRoleVo extends BaseVo {
 
     private static final long serialVersionUID = 1L;
 
     /** 角色id */
     private Long roleId;
+
+    @ApiModelProperty("平台标识")
+    private String clientId;
 
     /** 角色标识 */
     @ApiModelProperty(value = "角色标识")
@@ -46,15 +50,7 @@ public class SysRoleVo {
     @ApiModelProperty(value = "0-未启用 1-已启用")
     private Integer state;
 
-    @Override
-    public String toString(){
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-                .append("roleId",getRoleId())
-                .append("role",getRole())
-                .append("roleName",getRoleName())
-                .append("roleDesc",getRoleDesc())
-                .append("sort",getSort())
-                .append("state",getState())
-                .toString();
-    }
+    @ApiModelProperty("管理账户数")
+    private Integer accountCount;
+
 }

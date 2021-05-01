@@ -22,6 +22,8 @@ public interface IApplicationService extends IService<OAuthClientDetail> {
 
     List<ApplicationVo> queryList(QueryApplicationDto params);
 
+    List<OAuthClientDetailVo> queryAll(QueryApplicationDto params);
+
     IPage<OAuthClientDetailVo> queryPage(QueryApplicationDto params);
 
     Integer publish(String appId);

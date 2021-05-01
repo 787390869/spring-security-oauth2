@@ -64,6 +64,11 @@ public class ApplicationServiceImpl extends ServiceImpl<OAuthClientDetailMapper,
     }
 
     @Override
+    public List<OAuthClientDetailVo> queryAll(QueryApplicationDto params) {
+        return clientDetailMapper.findAll(params);
+    }
+
+    @Override
     public IPage<OAuthClientDetailVo> queryPage(QueryApplicationDto params) {
         if (StringUtils.isNotBlank(params.getUsername())) {
             QueryWrapper<SysUser> query = new QueryWrapper<>();

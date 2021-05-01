@@ -24,7 +24,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "sys_user_role", description = "用户角色")
-public class SysUserRole extends BaseEntity {
+public class SysUserRole {
 
     private static final long serialVersionUID = 1L;
 

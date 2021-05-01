@@ -1,5 +1,7 @@
 package com.zzq.cloud.sdk.utils;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.UUID;

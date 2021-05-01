@@ -39,4 +39,9 @@
         <result property="permissionId" column="permission_id"/>
     </resultMap>
 
+    <select id="findRemoveId" resultType="long">
+        select id from sys_role_permission
+        where role_id = #{roleId} and per_id = #{permissionId}
+    </select>
+
 </mapper>

@@ -84,8 +84,8 @@ public class AddSysPermissionDto {
     private Integer type;
 
     /** 平台标识 */
-    @NotNull(message = "平台标识不能为空")
+    @NotBlank(message = "平台标识不能为空")
     @ApiModelProperty(value = "平台标识", required = true)
-    private Long platform;
+    private String clientId;
 
 }

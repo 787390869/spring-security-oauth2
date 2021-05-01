@@ -3,13 +3,19 @@ package com.zzq.cloud.platform.service.sys.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zzq.cloud.platform.domain.sys.SysRole;
 import com.zzq.cloud.platform.domain.sys.SysUser;
+import com.zzq.cloud.platform.domain.sys.SysUserRole;
+import com.zzq.cloud.platform.mapper.sys.SysRoleMapper;
 import com.zzq.cloud.platform.mapper.sys.SysUserMapper;
+import com.zzq.cloud.platform.mapper.sys.SysUserRoleMapper;
 import com.zzq.cloud.platform.model.dto.sys.AddSysUserDto;
+import com.zzq.cloud.platform.model.dto.sys.EditUserDto;
 import com.zzq.cloud.platform.model.dto.sys.QuerySysUserDto;
 import com.zzq.cloud.platform.model.enums.UserStateEnum;
 import com.zzq.cloud.platform.model.vo.sys.SysUserVo;
 import com.zzq.cloud.platform.service.auth.IGoogleCodeService;
+import com.zzq.cloud.platform.service.sys.ISysUserRoleService;
 import com.zzq.cloud.platform.service.sys.ISysUserService;
 import com.zzq.cloud.sdk.framework.BusiException;
 import com.zzq.cloud.sdk.framework.E;
@@ -30,8 +36,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
 
     private final SysUserMapper sysUserMapper;
+    private final SysUserRoleMapper userRoleMapper;
+    private final SysRoleMapper roleMapper;
     private final PasswordEncoder passwordEncoder;
 
+    private final ISysUserRoleService userRoleService;
     private final IGoogleCodeService googleCodeService;
 
     @Override
@@ -56,6 +65,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         int i = sysUserMapper.insert(newUser);
 
         return i;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer editUser(EditUserDto userDto) {
+        SysUser user = sysUserMapper.selectById(userDto.getUserId());
+        if (ObjectUtils.isEmpty(user)) {
+            throw new BusiException(E.INVALID_PARAMETER, "该用户不存在");
+        }
+        BeanUtil.copyNotNullProperties(user, userDto);
+
+        userRoleService.removeByUserId(userDto.getUserId());
+        userRoleService.saveAll(userDto.getRoleIds(), userDto.getUserId());
+
+        return sysUserMapper.updateById(user);
     }
 
     @Override

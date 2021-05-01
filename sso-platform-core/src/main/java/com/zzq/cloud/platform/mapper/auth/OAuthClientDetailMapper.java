@@ -25,6 +25,8 @@ public interface OAuthClientDetailMapper extends BaseMapper<OAuthClientDetail> {
     /** 条件查询 */
     List<OAuthClientDetailVo> findByParams(@Param("p") QueryApplicationDto params);
 
+    List<OAuthClientDetailVo> findAll(@Param("p") QueryApplicationDto params);
+
     IPage<OAuthClientDetailVo> findPage(Page<?> page, @Param("p") QueryApplicationDto params);
 
     List<OAuthClientDetailVo> findByGroupId(@Param("groupId") Long groupId);

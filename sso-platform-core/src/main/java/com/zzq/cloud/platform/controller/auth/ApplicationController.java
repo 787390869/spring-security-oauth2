@@ -33,11 +33,18 @@ public class ApplicationController extends BaseController {
 
     private final IApplicationService applicationService;
 
-    @ApiOperation("应用列表")
+    @ApiOperation("应用列表(map)")
     @GetMapping("/list")
     public List<ApplicationVo> queryList(QueryApplicationDto params) {
         if (!this.isAdmin()) params.setUserId(this.getUserId());
         return applicationService.queryList(params);
+    }
+
+    @ApiOperation("应用列表")
+    @GetMapping("/all")
+    public List<OAuthClientDetailVo> queryAll(QueryApplicationDto params) {
+        if (!this.isAdmin()) params.setUserId(this.getUserId());
+        return applicationService.queryAll(params);
     }
 
     @ApiOperation("应用列表(分页)")

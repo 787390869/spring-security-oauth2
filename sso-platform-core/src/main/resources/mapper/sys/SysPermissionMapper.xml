@@ -61,27 +61,19 @@
         <result property="isFrame" column="is_frame"/>
         <result property="isCache" column="is_cache"/>
         <result property="type" column="type"/>
-        <result property="platform" column="platform"/>
+        <result property="clientId" column="client_id"/>
     </resultMap>
 
     <!-- 权限 全属性结果集Vo -->
-    <resultMap type="com.zzq.cloud.platform.model.vo.sys.SysPermissionVo" id="SysPermissionVoMap">
+    <resultMap type="com.zzq.cloud.platform.model.vo.sys.PermissionVo" id="SysPermissionVoMap">
         <result property="perId" column="per_id"/>
         <result property="perm" column="perm"/>
         <result property="perName" column="per_name"/>
         <result property="perDesc" column="per_desc"/>
-        <result property="leftValue" column="left_value"/>
         <result property="parentId" column="parent_id"/>
-        <result property="rightValue" column="right_value"/>
-        <result property="layer" column="layer"/>
-        <result property="sort" column="sort"/>
-        <result property="icon" column="icon"/>
-        <result property="routePath" column="route_path"/>
-        <result property="componentPath" column="component_path"/>
-        <result property="isFrame" column="is_frame"/>
-        <result property="isCache" column="is_cache"/>
+        <result property="parentPerm" column="parent_perm"/>
         <result property="type" column="type"/>
-        <result property="platform" column="platform"/>
+        <result property="clientId" column="client_id"/>
     </resultMap>
 
     <!-- 权限 全属性结果集DetailVo -->
@@ -101,7 +93,7 @@
         <result property="isFrame" column="is_frame"/>
         <result property="isCache" column="is_cache"/>
         <result property="type" column="type"/>
-        <result property="platform" column="platform"/>
+        <result property="clientId" column="client_id"/>
     </resultMap>
 
     <insert id="callInsert" parameterType="com.zzq.cloud.platform.domain.sys.SysPermission" statementType="CALLABLE">
@@ -112,7 +104,7 @@
             #{perName,mode=IN,jdbcType=VARCHAR},
             #{perDesc,mode=IN,jdbcType=VARCHAR},
             #{parentId,mode=IN,jdbcType=BIGINT},
-            #{platform,mode=IN,jdbcType=INTEGER},
+            #{clientId,mode=IN,jdbcType=VARCHAR},
             #{sort,mode=IN,jdbcType=INTEGER},
             #{icon,mode=IN,jdbcType=VARCHAR},
             #{routePath,mode=IN,jdbcType=VARCHAR},
@@ -125,4 +117,59 @@
             )
         ]]>
     </insert>
+
+    <select id="findById" resultMap="SysPermissionDetailVoMap">
+        select * from sys_permission
+        where is_delete = 0
+        and per_id = #{permissionId}
+    </select>
+
+    <select id="findByClientId" resultMap="SysPermissionVoMap">
+        select sp.*, sp2.perm as parent_perm
+        from sys_permission sp
+        left join sys_permission sp2 on sp2.per_id = sp.parent_id
+        where sp.is_delete = 0 and (sp.client_id = #{clientId} or sp.client_id is null)
+        order by sp.create_time asc
+    </select>
+
+    <select id="findByParams" resultMap="SysPermissionVoMap">
+        select sp.*
+        from sys_permission sp
+        where sp.is_delete = 0
+        <if test="p.clientId != null and p.clientId != ''">
+            and sp.client_id = #{p.clientId}
+        </if>
+        <if test="p.perm != null and p.perm != ''">
+            and sp.perm like concat('%', #{p.perm}, '%')
+        </if>
+        <if test="p.perName != null and p.perName != ''">
+            and sp.per_name like concat('%', #{p.perName}, '%')
+        </if>
+        <if test="p.type != null and p.type != 0">
+            and sp.type = #{p.type}
+        </if>
+        order by client_id
+    </select>
+
+    <select id="findByRoleId" resultType="long">
+        select p.per_id from sys_permission p
+        left join sys_role_permission rp on rp.per_id = p.per_id
+        left join sys_role r on r.role_id = rp.role_id
+        <where>
+            <if test="roleId != null and roleId != 1">
+                and r.role_id = #{roleId}
+            </if>
+        </where>
+    </select>
+
+    <select id="isExistOtherClientPermission" resultType="int">
+        select exists (
+            select 1 from sys_permission
+            where client_id != #{clientId}
+            and per_id in
+            <foreach collection="permissionIds" item="permissionId" open="(" separator="," close=")">
+                #{permissionId}
+            </foreach>
+        )
+    </select>
 </mapper>

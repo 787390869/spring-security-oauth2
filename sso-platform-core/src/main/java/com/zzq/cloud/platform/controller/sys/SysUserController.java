@@ -2,6 +2,7 @@ package com.zzq.cloud.platform.controller.sys;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zzq.cloud.platform.model.dto.sys.AddSysUserDto;
+import com.zzq.cloud.platform.model.dto.sys.EditUserDto;
 import com.zzq.cloud.platform.model.dto.sys.QuerySysUserDto;
 import com.zzq.cloud.platform.model.enums.UserSexEnum;
 import com.zzq.cloud.platform.model.enums.UserStateEnum;
@@ -12,6 +13,7 @@ import com.zzq.cloud.sdk.annotations.User;
 import com.zzq.cloud.sdk.base.SecurityUser;
 import com.zzq.cloud.sdk.framework.IOAuthResource;
 import com.zzq.cloud.sdk.framework.Result;
+import io.netty.util.internal.IntegerHolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -55,4 +57,11 @@ public class SysUserController {
     public Integer state(@PathVariable Long userId) {
         return userService.state(userId);
     }
+
+    @ApiOperation("修改用户信息")
+    @PostMapping("/edit")
+    public Integer editUser(@Valid @RequestBody EditUserDto userDto) {
+        return userService.editUser(userDto);
+    }
+
 }

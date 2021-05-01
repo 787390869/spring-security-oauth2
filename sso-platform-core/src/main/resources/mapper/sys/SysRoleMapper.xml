@@ -42,6 +42,7 @@
         <result property="roleDesc" column="role_desc"/>
         <result property="sort" column="sort"/>
         <result property="state" column="state"/>
+        <association property="accountCount" column="{roleId = role_id}" select="findCount"/>
     </resultMap>
 
     <!-- 角色 全属性结果集DetailVo -->
@@ -54,4 +55,37 @@
         <result property="state" column="state"/>
     </resultMap>
 
+    <select id="findByParams" resultMap="SysRoleVoMap">
+        select distinct(r.role_id), r.role, r.role_name, r.role_desc, r.state, r.create_time
+        from sys_role r
+        <if test="p.permission != null and p.permission != ''">
+            left join sys_role_permission rp on rp.role_id = r.role_id
+            left join sys_permission p on p.per_id = rp.per_id
+        </if>
+        where r.is_delete = 0
+        <if test="p.clientId != null and p.clientId != ''">
+            and r.client_id = #{p.clientId}
+        </if>
+        <if test="p.state != null and p.state != -1">
+            and r.state = #{p.state}
+        </if>
+        <if test="p.role != null and p.role != ''">
+            and r.role like concat(#{p.role}, '%')
+        </if>
+        <if test="p.permission != null and p.permission != ''">
+            and p.perm like concat('%', #{p.permission}, '%')
+        </if>
+        order by r.create_time asc
+    </select>
+
+    <select id="findAll" resultType="string">
+        select role from sys_role where state = 1 and is_delete = 0
+    </select>
+
+    <select id="findCount" resultType="int">
+        select count(u.user_id) from sys_user u
+             left join sys_user_role ur on ur.user_id = u.user_id
+             left join sys_role r on r.role_id = ur.role_id
+        where r.role_id = #{roleId}
+    </select>
 </mapper>

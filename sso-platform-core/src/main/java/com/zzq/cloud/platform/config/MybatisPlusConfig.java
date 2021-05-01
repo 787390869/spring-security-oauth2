@@ -1,10 +1,12 @@
 package com.zzq.cloud.platform.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.pagination.DialectModel;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +36,8 @@ public class MybatisPlusConfig {
         interceptor.setMaxLimit(500L);
         interceptor.setDbType(DbType.MYSQL);
         interceptor.setOptimizeJoin(true);
+
+        mybatisPlusInterceptor.addInnerInterceptor(interceptor);
         return mybatisPlusInterceptor;
     }
 

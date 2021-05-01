@@ -84,27 +84,5 @@ public class SysPermissionVo {
 
     /** 平台标识 */
     @ApiModelProperty(value = "平台标识")
-    private Long platform;
-
-    @Override
-    public String toString(){
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-                .append("perId",getPerId())
-                .append("perm",getPerm())
-                .append("perName",getPerName())
-                .append("perDesc",getPerDesc())
-                .append("leftValue",getLeftValue())
-                .append("parentId",getParentId())
-                .append("rightValue",getRightValue())
-                .append("layer",getLayer())
-                .append("sort",getSort())
-                .append("icon",getIcon())
-                .append("routePath",getRoutePath())
-                .append("componentPath",getComponentPath())
-                .append("isFrame",getIsFrame())
-                .append("isCache",getIsCache())
-                .append("type",getType())
-                .append("platform",getPlatform())
-                .toString();
-    }
+    private String clientId;
 }

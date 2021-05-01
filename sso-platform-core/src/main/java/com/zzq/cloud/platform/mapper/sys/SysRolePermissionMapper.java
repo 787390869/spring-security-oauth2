@@ -14,4 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SysRolePermissionMapper extends BaseMapper<SysRolePermission> {
 
+    Long findRemoveId(Long roleId, Long permissionId);
+
 }

@@ -24,7 +24,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "sys_role_permission", description = "角色权限")
-public class SysRolePermission extends BaseEntity {
+public class SysRolePermission  {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,14 +38,5 @@ public class SysRolePermission extends BaseEntity {
 
     /** 权限id */
     @ApiModelProperty(value = "权限id")
-    private Long permissionId;
-
-    @Override
-    public String toString(){
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id",getId())
-            .append("roleId",getRoleId())
-            .append("permissionId",getPermissionId())
-            .toString();
-    }
+    private Long perId;
 }

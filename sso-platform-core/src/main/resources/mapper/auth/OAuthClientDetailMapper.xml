@@ -122,9 +122,22 @@
         </if>
     </select>
 
+    <select id="findAll" resultMap="OAuthClientVoMap">
+        select distinct(ocd.client_id), ocd.client_name, ocd.create_time
+        from oauth_client_details ocd
+        <if test="p.userId != null and p.userId != 0">
+            left join sys_user_application sua on sua.client_id = ocd.client_id
+        </if>
+        where ocd.is_delete = 0
+        <if test="p.userId != null and p.userId != 0">
+            and sua.user_id = #{p.userId}
+        </if>
+        order by ocd.create_time asc
+    </select>
+
     <select id="findPage" resultMap="OAuthClientVoMap">
         select distinct(ocd.client_id), ocd.original_secret, ocd.group_id, ocd.client_name, ocd.authorized_grant_types,
-            ocd.web_server_redirect_uri, ocd.icon, ocd.is_publish, ocd.create_time, ocd.access_token_validity,
+            ocd.web_server_redirect_uri, ocd.icon, ocd.create_time, ocd.access_token_validity,
             ocd.refresh_token_validity, ocd.is_publish, sag.group_name
         from oauth_client_details ocd
         left join sys_user_application sua on sua.client_id = ocd.client_id

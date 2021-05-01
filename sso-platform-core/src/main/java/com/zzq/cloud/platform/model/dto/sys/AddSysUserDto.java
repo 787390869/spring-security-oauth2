@@ -54,6 +54,7 @@ public class AddSysUserDto {
     private Integer sex;
 
     /** 头像地址 */
+    @NotBlank(message = "头像不能为空")
     @ApiModelProperty(value = "头像地址")
     private String avator;
 

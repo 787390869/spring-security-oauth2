@@ -33,6 +33,9 @@ public class SysRole extends BaseEntity {
     @TableId(type = IdType.ASSIGN_ID)
     private Long roleId;
 
+    @ApiModelProperty("平台标识")
+    private String clientId;
+
     /** 角色标识 */
     @ApiModelProperty(value = "角色标识")
     private String role;
