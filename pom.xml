@@ -10,8 +10,8 @@
     <version>1.0.0</version>
     <description>SSO-统一认证授权平台</description>
     <modules>
-        <module>oauth-platform</module>
-        <module>oauth-platform-sdk</module>
+        <module>sso-platform-core</module>
+        <module>sso-platform-sdk</module>
     </modules>
 
     <parent>
@@ -40,6 +40,7 @@
         <apache.common.beanutil.version>1.9.4</apache.common.beanutil.version>
         <google.kaptcha.version>2.3.2</google.kaptcha.version>
         <google.googleauth.version>1.1.2</google.googleauth.version>
+        <zzq.redislock.version>1.0.0</zzq.redislock.version>
 
         <!-- 接口文档 -->
         <swagger2.version>2.9.2</swagger2.version>
@@ -118,6 +119,11 @@
                 <groupId>com.warrenstrange</groupId>
                 <artifactId>googleauth</artifactId>
                 <version>${google.googleauth.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zzq.cloud</groupId>
+                <artifactId>redis-lock</artifactId>
+                <version>${zzq.redislock.version}</version>
             </dependency>
 
             <!-- 工具包 -->
