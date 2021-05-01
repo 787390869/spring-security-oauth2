@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * 用户Vo sys_user
  * @author ZZQ
@@ -56,5 +58,11 @@ public class SysUserVo extends BaseVo {
     /** 启用状态 0-未启用 1-已启用 */
     @ApiModelProperty(value = "启用状态 0-未启用 1-已启用")
     private Integer state;
+
+    @ApiModelProperty("谷歌key")
+    private String googleKey;
+
+    @ApiModelProperty("角色")
+    private List<String> roles;
 
 }

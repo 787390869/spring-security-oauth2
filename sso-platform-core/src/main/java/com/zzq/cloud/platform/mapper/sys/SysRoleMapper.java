@@ -24,4 +24,6 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
     IPage<SysRoleVo> findByParams(Page<?> page, @Param("p")QueryRoleDto params);
 
     List<String> findAll();
+
+    List<SysRoleVo> allRole();
 }

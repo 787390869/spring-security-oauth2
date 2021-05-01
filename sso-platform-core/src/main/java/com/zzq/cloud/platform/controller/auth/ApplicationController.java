@@ -43,7 +43,7 @@ public class ApplicationController extends BaseController {
     @ApiOperation("应用列表")
     @GetMapping("/all")
     public List<OAuthClientDetailVo> queryAll(QueryApplicationDto params) {
-        if (!this.isAdmin()) params.setUserId(this.getUserId());
+        // if (!this.isAdmin()) params.setUserId(this.getUserId());
         return applicationService.queryAll(params);
     }
 

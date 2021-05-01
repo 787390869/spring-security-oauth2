@@ -17,4 +17,6 @@ public interface ISysUserRoleService extends IService<SysUserRole> {
 
     void saveAll(List<Long> roleIds, Long userId);
 
+    void saveMany(List<String> roles, Long userId);
+
 }

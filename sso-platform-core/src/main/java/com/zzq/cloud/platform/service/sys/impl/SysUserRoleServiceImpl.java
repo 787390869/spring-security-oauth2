@@ -2,7 +2,9 @@ package com.zzq.cloud.platform.service.sys.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zzq.cloud.platform.domain.sys.SysRole;
 import com.zzq.cloud.platform.domain.sys.SysUserRole;
+import com.zzq.cloud.platform.mapper.sys.SysRoleMapper;
 import com.zzq.cloud.platform.mapper.sys.SysUserRoleMapper;
 import com.zzq.cloud.platform.service.sys.ISysUserRoleService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements ISysUserRoleService {
 
+    private final SysRoleMapper roleMapper;
     private final SysUserRoleMapper sysUserRoleMapper;
 
     @Override
@@ -36,6 +39,20 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
             SysUserRole userRole = new SysUserRole();
             userRole.setUserId(userId);
             userRole.setRoleId(roleId);
+            return userRole;
+        }).collect(Collectors.toList());
+        this.saveBatch(userRoles);
+    }
+
+    @Override
+    public void saveMany(List<String> roles, Long userId) {
+        List<SysUserRole> userRoles = roles.stream().map(role -> {
+            SysUserRole userRole = new SysUserRole();
+            userRole.setUserId(userId);
+            QueryWrapper<SysRole> query = new QueryWrapper<>();
+            query.eq("role", role)
+                 .eq("is_delete", 0);
+            userRole.setRoleId(roleMapper.selectOne(query).getRoleId());
             return userRole;
         }).collect(Collectors.toList());
         this.saveBatch(userRoles);

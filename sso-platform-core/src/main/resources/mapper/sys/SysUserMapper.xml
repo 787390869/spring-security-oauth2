@@ -57,6 +57,7 @@
         <result property="email" column="email"/>
         <result property="state" column="state"/>
         <result property="createTime" column="create_time" />
+        <collection property="roles" column="userId = user_id" select="findRolesByUserId" />
     </resultMap>
 
     <!-- 用户 全属性结果集DetailVo -->
@@ -91,35 +92,45 @@
     </select>
 
     <select id="findPageByParams" resultMap="SysUserVoMap">
-        select su.* from sys_user su
-        left join sys_user_role sur on sur.user_id = su.user_id
-        left join sys_role sr on sr.role_id = sr.role_id
-        <where>
-            <if test="p.deptId != null and p.deptId != 0">
-                and su.dept_id = #{p.deptId}
-            </if>
-            <if test="p.name != null and p.name != ''">
-                and (
-                    su.username like concat('%', #{p.name}, '%')
-                    or
-                    su.nickname like concat('%', #{p.name}, '%')
-                )
-            </if>
-            <if test="p.phone != null and p.phone != ''">
-                and su.phone = #{p.phone}
-            </if>
-            <if test="p.role != null and p.role != ''">
-                and sr.role = #{p.role}
-            </if>
-            <if test="p.state != null and p.state.code != -1">
-                and su.state = #{p.state.code}
-            </if>
-        </where>
+        select distinct(su.user_id), su.username, su.nickname, su.phone, su.sex, su.avator, su.state, su.google_key, su.create_time from sys_user su
+        <if test="p.roleId != null and p.roleId != 0">
+            left join sys_user_role sur on sur.user_id = su.user_id
+            left join sys_role sr on sr.role_id = sr.role_id
+        </if>
+        where su.is_delete = 0
+        <if test="p.deptId != null and p.deptId != 0">
+            and su.dept_id = #{p.deptId}
+        </if>
+        <if test="p.name != null and p.name != ''">
+            and (
+                su.username like concat('%', #{p.name}, '%')
+                or
+                su.nickname like concat('%', #{p.name}, '%')
+            )
+        </if>
+        <if test="p.phone != null and p.phone != ''">
+            and su.phone = #{p.phone}
+        </if>
+        <if test="p.roleId != null and p.roleId != 0">
+            and sur.role_id = #{p.roleId}
+        </if>
+        <if test="p.state != null and p.state != -1">
+            and su.state = #{p.state}
+        </if>
+        order by su.create_time asc
     </select>
 
     <select id="findPasswordById" resultType="string">
         select original_password
         from sys_user su
         where su.user_id = #{userId}
+    </select>
+
+    <!-- 根据用户id 查用户角色 -->
+    <select id="findRolesByUserId" resultType="string">
+        select role from sys_role r
+        left join sys_user_role ur on ur.role_id = r.role_id
+        left join sys_user u on u.user_id = ur.user_id
+        where u.user_id = #{userId} and r.state = 1
     </select>
 </mapper>

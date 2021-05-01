@@ -36,9 +36,9 @@ public class QuerySysUserDto extends BasePageDto<QuerySysUserDto> {
     private String phone;
 
     @ApiModelProperty(value = "用户角色")
-    private String role;
+    private Long roleId;
 
     @ApiModelProperty(value = "启用状态 0-禁用 1-启用 -1-全部")
-    private UserStateEnum state;
+    private Integer state;
 
 }

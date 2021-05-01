@@ -88,4 +88,10 @@
              left join sys_role r on r.role_id = ur.role_id
         where r.role_id = #{roleId}
     </select>
+
+    <select id="allRole" resultMap="SysRoleVoMap">
+        select role_id, role
+        from sys_role
+        where is_delete = 0 and state = 1
+    </select>
 </mapper>

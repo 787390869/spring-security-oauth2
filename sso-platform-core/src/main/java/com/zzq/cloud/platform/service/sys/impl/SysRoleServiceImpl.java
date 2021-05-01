@@ -76,4 +76,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         BeanUtil.copyNotNullProperties(role, roleDto);
         return roleMapper.updateById(role);
     }
+
+    @Override
+    public List<SysRoleVo> allRole() {
+        return roleMapper.allRole();
+    }
 }

@@ -66,5 +66,8 @@ public class AddSysUserDto {
     @ApiModelProperty(value = "启用状态 0-未启用 1-已启用")
     private Integer state;
 
+    @ApiModelProperty("角色")
+    private List<Long> roleIds;
+
 
 }

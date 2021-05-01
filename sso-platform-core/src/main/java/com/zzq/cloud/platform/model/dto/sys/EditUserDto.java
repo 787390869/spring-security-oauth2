@@ -21,6 +21,6 @@ public class EditUserDto {
     private String phone;
 
     @NotNull(message = "用户角色不能为空")
-    private List<Long> roleIds;
+    private List<String> roles;
 
 }

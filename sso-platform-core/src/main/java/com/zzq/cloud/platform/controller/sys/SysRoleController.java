@@ -64,6 +64,11 @@ public class SysRoleController {
         return roleService.edit(roleDto);
     }
 
+    @ApiOperation("所有角色")
+    @GetMapping("/all_role")
+    public List<SysRoleVo> allRole() {
+        return roleService.allRole();
+    }
 
 
 }

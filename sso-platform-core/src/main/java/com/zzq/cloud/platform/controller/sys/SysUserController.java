@@ -2,6 +2,7 @@ package com.zzq.cloud.platform.controller.sys;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zzq.cloud.platform.model.dto.sys.AddSysUserDto;
+import com.zzq.cloud.platform.model.dto.sys.EditPasswordDto;
 import com.zzq.cloud.platform.model.dto.sys.EditUserDto;
 import com.zzq.cloud.platform.model.dto.sys.QuerySysUserDto;
 import com.zzq.cloud.platform.model.enums.UserSexEnum;
@@ -53,7 +54,7 @@ public class SysUserController {
     }
 
     @ApiOperation("禁用/启用用户")
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/state/{userId}")
     public Integer state(@PathVariable Long userId) {
         return userService.state(userId);
     }
@@ -62,6 +63,24 @@ public class SysUserController {
     @PostMapping("/edit")
     public Integer editUser(@Valid @RequestBody EditUserDto userDto) {
         return userService.editUser(userDto);
+    }
+
+    @ApiOperation("修改密码")
+    @PutMapping("/password")
+    public Integer updatePassword(@Valid EditPasswordDto passwordDto) {
+        return userService.updatePassword(passwordDto);
+    }
+
+    @ApiOperation("删除用户")
+    @DeleteMapping("/{userId}")
+    public Integer removeOne(@PathVariable Long userId) {
+        return userService.removeOne(userId);
+    }
+
+    @ApiOperation("重置谷歌key")
+    @PutMapping("/google/{userId}")
+    public Integer resetGoogleKey(@PathVariable Long userId) {
+        return userService.resetGoogleKey(userId);
     }
 
 }

@@ -29,4 +29,6 @@ public interface ISysRoleService extends IService<SysRole> {
     Integer addRole(AddRoleDto roleDto);
 
     Integer edit(EditRoleDto roleDto);
+
+    List<SysRoleVo> allRole();
 }
