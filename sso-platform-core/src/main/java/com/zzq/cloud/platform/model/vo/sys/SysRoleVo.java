@@ -30,6 +30,9 @@ public class SysRoleVo extends BaseVo {
     @ApiModelProperty("平台标识")
     private String clientId;
 
+    @ApiModelProperty("平台名称")
+    private String clientName;
+
     /** 角色标识 */
     @ApiModelProperty(value = "角色标识")
     private String role;

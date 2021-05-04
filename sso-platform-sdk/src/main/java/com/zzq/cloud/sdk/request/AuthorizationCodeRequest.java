@@ -1,9 +1,10 @@
-package com.zzq.cloud.sdk.utils;
+package com.zzq.cloud.sdk.request;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zzq.cloud.sdk.framework.BusiException;
-import com.zzq.cloud.sdk.security.AccessToken;
+import com.zzq.cloud.sdk.exception.PlatformSdkException;
+import com.zzq.cloud.sdk.response.AccessToken;
+import com.zzq.cloud.sdk.utils.HttpUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -39,15 +40,16 @@ public class AuthorizationCodeRequest {
                 return res.getObject("data", AccessToken.class);
 
             String msg = res.getString("msg");
-            throw new BusiException(String.format("GET ACCESS_TOKEN FAILED: CODE=%s, MSG=%s", code, msg));
+            throw new RuntimeException(String.format("GET ACCESS_TOKEN FAILED: CODE=%s, MSG=%s", code, msg));
         } catch (Exception e) {
-            log.error("获取凭证失败!", e);
-            throw new BusiException("GET ACCESS_TOKEN FAILED!");
+            System.out.println(JSONObject.toJSONString(e));
+            e.printStackTrace();
+            throw new PlatformSdkException("GET ACCESS_TOKEN FAILED!");
         }
     }
 
     public static void main(String[] args) {
-        AccessToken accessToken = AuthorizationCodeRequest.getAccessToken("http://localhost:9500", "client", "OPEN-20210429170357");
+        AccessToken accessToken = AuthorizationCodeRequest.getAccessToken("http://localhost:9500", "A107E56FB9CBBC3F453803BEDC70A72A", "OPEN-20210504235540");
         System.out.println(JSONObject.toJSONString(accessToken));
     }
 }

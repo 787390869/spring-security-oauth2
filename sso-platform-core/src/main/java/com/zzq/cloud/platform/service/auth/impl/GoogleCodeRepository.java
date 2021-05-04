@@ -4,14 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.warrenstrange.googleauth.ICredentialRepository;
 import com.zzq.cloud.platform.domain.sys.SysUser;
 import com.zzq.cloud.platform.mapper.sys.SysUserMapper;
-import com.zzq.cloud.platform.service.auth.IGoogleCodeService;
-import com.zzq.cloud.sdk.utils.Md5Util;
+import com.zzq.cloud.platform.util.Md5Util;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @Author ZhangZiQiang

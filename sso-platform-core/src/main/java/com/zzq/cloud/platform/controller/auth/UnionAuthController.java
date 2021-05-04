@@ -1,13 +1,12 @@
 package com.zzq.cloud.platform.controller.auth;
 
-import com.mysql.cj.log.Log;
 import com.zzq.cloud.platform.model.dto.auth.CodeLoginDto;
 import com.zzq.cloud.platform.model.dto.auth.LoginDto;
 import com.zzq.cloud.platform.model.dto.auth.RefreshDto;
 import com.zzq.cloud.platform.service.auth.IAuthService;
 import com.zzq.cloud.platform.service.auth.IGoogleCodeService;
-import com.zzq.cloud.sdk.annotations.IgnoreResponseBodyAdvice;
-import com.zzq.cloud.sdk.base.BaseController;
+import com.zzq.cloud.platform.framework.IgnoreResponseBodyAdvice;
+import com.zzq.cloud.sdk.framework.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

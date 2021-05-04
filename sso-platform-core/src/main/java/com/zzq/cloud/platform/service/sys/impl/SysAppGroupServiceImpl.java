@@ -1,7 +1,6 @@
 package com.zzq.cloud.platform.service.sys.impl;
 
 import java.util.List;
-import java.util.Arrays;
 
 import com.zzq.cloud.platform.domain.sys.SysAppGroup;
 import com.zzq.cloud.platform.mapper.auth.OAuthClientDetailMapper;
@@ -11,14 +10,11 @@ import com.zzq.cloud.platform.model.dto.sys.QueryApplicationDto;
 import com.zzq.cloud.platform.model.vo.auth.ApplicationVo;
 import com.zzq.cloud.platform.model.vo.sys.SysAppGroupVo;
 import com.zzq.cloud.platform.service.sys.ISysAppGroupService;
-import com.zzq.cloud.sdk.framework.BusiException;
-import com.zzq.cloud.sdk.utils.BeanUtil;
+import com.zzq.cloud.platform.framework.BusiException;
+import com.zzq.cloud.platform.util.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,4 +1,4 @@
-package com.zzq.cloud.sdk.framework.enums;
+package com.zzq.cloud.platform.framework.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

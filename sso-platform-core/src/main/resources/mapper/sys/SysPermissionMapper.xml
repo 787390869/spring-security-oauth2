@@ -69,6 +69,7 @@
         <result property="perId" column="per_id"/>
         <result property="perm" column="perm"/>
         <result property="perName" column="per_name"/>
+        <result property="clientName" column="client_name"/>
         <result property="perDesc" column="per_desc"/>
         <result property="parentId" column="parent_id"/>
         <result property="parentPerm" column="parent_perm"/>
@@ -133,8 +134,9 @@
     </select>
 
     <select id="findByParams" resultMap="SysPermissionVoMap">
-        select sp.*
+        select sp.*, ocd.client_name
         from sys_permission sp
+        left join oauth_client_details ocd on ocd.client_id = sp.client_id
         where sp.is_delete = 0
         <if test="p.clientId != null and p.clientId != ''">
             and sp.client_id = #{p.clientId}

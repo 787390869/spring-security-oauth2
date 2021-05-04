@@ -6,7 +6,7 @@ import com.zzq.cloud.platform.model.dto.sys.EditRoleDto;
 import com.zzq.cloud.platform.model.dto.sys.QueryRoleDto;
 import com.zzq.cloud.platform.model.vo.sys.SysRoleVo;
 import com.zzq.cloud.platform.service.sys.ISysRoleService;
-import com.zzq.cloud.sdk.base.BaseController;
+import com.zzq.cloud.sdk.framework.BaseController;
 import com.zzq.cloud.sdk.framework.IOAuthResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

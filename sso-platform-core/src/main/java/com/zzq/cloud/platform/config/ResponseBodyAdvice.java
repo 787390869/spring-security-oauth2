@@ -1,8 +1,8 @@
 package com.zzq.cloud.platform.config;
 
 import com.alibaba.fastjson.JSON;
-import com.zzq.cloud.sdk.annotations.IgnoreResponseBodyAdvice;
-import com.zzq.cloud.sdk.framework.Result;
+import com.zzq.cloud.platform.framework.IgnoreResponseBodyAdvice;
+import com.zzq.cloud.platform.framework.Result;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

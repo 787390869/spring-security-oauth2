@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.zzq.cloud.platform.service.auth.impl.GoogleCodeRepository;
-import com.zzq.cloud.sdk.converter.*;
+import com.zzq.cloud.platform.converter.*;
 import com.zzq.cloud.sdk.security.SecurityArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-import static com.zzq.cloud.sdk.utils.DateUtil.*;
+import static com.zzq.cloud.platform.util.DateUtil.*;
 
 /**
  * @author ZZQ

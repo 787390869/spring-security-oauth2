@@ -1,9 +1,9 @@
-package com.zzq.cloud.sdk.framework;
+package com.zzq.cloud.platform.framework;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.zzq.cloud.sdk.framework.enums.IBaseEnum;
-import com.zzq.cloud.sdk.utils.ServletUtil;
+import com.zzq.cloud.platform.framework.enums.IBaseEnum;
+import com.zzq.cloud.platform.util.ServletUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

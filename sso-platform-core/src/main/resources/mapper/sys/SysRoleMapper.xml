@@ -41,6 +41,7 @@
         <result property="roleName" column="role_name"/>
         <result property="roleDesc" column="role_desc"/>
         <result property="sort" column="sort"/>
+        <result property="clientName" column="client_name"/>
         <result property="state" column="state"/>
         <association property="accountCount" column="{roleId = role_id}" select="findCount"/>
     </resultMap>
@@ -56,8 +57,9 @@
     </resultMap>
 
     <select id="findByParams" resultMap="SysRoleVoMap">
-        select distinct(r.role_id), r.role, r.role_name, r.role_desc, r.state, r.create_time
+        select distinct(r.role_id), r.role, r.role_name, r.role_desc, r.state, r.create_time, ocd.client_name
         from sys_role r
+        left join oauth_client_details ocd on ocd.client_id = r.client_id
         <if test="p.permission != null and p.permission != ''">
             left join sys_role_permission rp on rp.role_id = r.role_id
             left join sys_permission p on p.per_id = rp.per_id

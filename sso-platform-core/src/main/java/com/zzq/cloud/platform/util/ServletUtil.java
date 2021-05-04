@@ -1,4 +1,4 @@
-package com.zzq.cloud.sdk.utils;
+package com.zzq.cloud.platform.util;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.context.request.RequestAttributes;

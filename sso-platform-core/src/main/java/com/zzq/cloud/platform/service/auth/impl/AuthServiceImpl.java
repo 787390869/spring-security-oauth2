@@ -1,5 +1,6 @@
 package com.zzq.cloud.platform.service.auth.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzq.cloud.platform.domain.auth.OAuthClientDetail;
 import com.zzq.cloud.platform.domain.sys.SysUser;
@@ -14,18 +15,15 @@ import com.zzq.cloud.platform.model.vo.auth.AuthorizationVo;
 import com.zzq.cloud.platform.model.vo.auth.OAuthClientDetailVo;
 import com.zzq.cloud.platform.security.PlatformAuthorizeCodeService;
 import com.zzq.cloud.platform.service.auth.IGoogleCodeService;
-import com.zzq.cloud.sdk.framework.BusiException;
+import com.zzq.cloud.platform.framework.BusiException;
 import com.zzq.cloud.sdk.security.SecurityModel;
 import com.zzq.cloud.platform.service.auth.IAuthService;
-import com.zzq.cloud.platform.service.sys.IOAuthUserBuilder;
-import com.zzq.cloud.sdk.framework.E;
-import com.zzq.cloud.sdk.utils.BasicUtil;
-import com.zzq.cloud.sdk.utils.BeanUtil;
+import com.zzq.cloud.platform.framework.E;
+import com.zzq.cloud.platform.util.BasicUtil;
 import com.zzq.redis.annotations.Lock;
 import com.zzq.redis.annotations.LockKey;
 import com.zzq.redis.model.LockPolicy;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpEntity;
@@ -34,8 +32,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.stereotype.Service;
@@ -45,7 +41,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -108,7 +103,7 @@ public class AuthServiceImpl implements IAuthService {
         LinkedMultiValueMap<String, String> body = new LinkedMultiValueMap<>();
 
         OAuthClientDetail clientDetail = clientDetailMapper.selectById(codeLoginDto.getAppId());
-        if (ObjectUtils.isEmpty(clientDetail)) throw new BusiException("应用不存在!");
+        if (ObjectUtils.isEmpty(clientDetail)) throw new BusiException(E.INVALID_PARAMETER, "应用不存在!");
 
         header.add("Authorization", BasicUtil.encryptHttpBasic(codeLoginDto.getAppId(), clientDetail.getOriginalSecret()));
         body.add(OAuth2Utils.GRANT_TYPE, "authorization_code");
@@ -161,7 +156,7 @@ public class AuthServiceImpl implements IAuthService {
             bodyMap = result.getBody();
             bodyMap.put("code", 200);
         } catch (Exception e) {
-            bodyMap.put("error_msg", "登录凭证错误");
+            bodyMap.put("error_msg", e.getMessage());
             e.printStackTrace();
             bodyMap.put("code", E.INVALID_PASSWORD);
         }

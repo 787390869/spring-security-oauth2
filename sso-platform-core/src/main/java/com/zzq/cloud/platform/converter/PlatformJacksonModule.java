@@ -1,4 +1,4 @@
-package com.zzq.cloud.sdk.converter;
+package com.zzq.cloud.platform.converter;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.zzq.cloud.sdk.utils.DateUtil;
+import com.zzq.cloud.platform.util.DateUtil;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

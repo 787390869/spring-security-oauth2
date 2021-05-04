@@ -1,4 +1,4 @@
-package com.zzq.cloud.sdk.security;
+package com.zzq.cloud.sdk.response;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

@@ -1,5 +1,6 @@
 package com.zzq.cloud.platform.model.vo.sys;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,9 @@ public class PermissionVo {
     private Long perId;
 
     private String clientId;
+
+    @ApiModelProperty("平台名称")
+    private String clientName;
 
     /**
      * 父权限id

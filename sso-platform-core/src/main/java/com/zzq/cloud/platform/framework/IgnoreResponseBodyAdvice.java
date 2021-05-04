@@ -1,4 +1,4 @@
-package com.zzq.cloud.sdk.annotations;
+package com.zzq.cloud.platform.framework;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

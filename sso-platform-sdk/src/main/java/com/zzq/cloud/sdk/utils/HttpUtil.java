@@ -1,7 +1,7 @@
 package com.zzq.cloud.sdk.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.zzq.cloud.sdk.framework.BusiException;
+import com.zzq.cloud.sdk.exception.PlatformSdkException;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -34,11 +34,11 @@ public class HttpUtil {
                 return response.charset(StandardCharsets.UTF_8.name()).body();
             }
 
-            throw new BusiException("Request net failure: " + response.statusCode() + "=" + response.statusMessage());
-        } catch (BusiException e) {
+            throw new RuntimeException("Request net failure: " + response.statusCode() + "=" + response.statusMessage());
+        } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusiException(0, "Request exception: " + e.getMessage(), e);
+            throw new PlatformSdkException(0, "Request exception: " + e.getMessage(), e);
         }
     }
 
@@ -60,14 +60,14 @@ public class HttpUtil {
             request.requestBody(JSON.toJSONString(body));
             Connection.Response response = connection.execute();
             if (HTTP_RESPONSE_CODE_OK != response.statusCode()) {
-                throw new BusiException("Request net failure: " + response.statusCode() + "=" + response.statusMessage());
+                throw new PlatformSdkException("Request net failure: " + response.statusCode() + "=" + response.statusMessage());
             }
 
             return response.charset(StandardCharsets.UTF_8.name()).body();
-        } catch (BusiException e) {
+        } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw new BusiException(0, "Request exception: " + e.getMessage(), e);
+            throw new PlatformSdkException(0, "Request exception: " + e.getMessage(), e);
         }
     }
 

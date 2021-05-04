@@ -3,8 +3,8 @@ package com.zzq.cloud.platform.service.auth.impl;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.zzq.cloud.platform.service.auth.IGoogleCodeService;
-import com.zzq.cloud.sdk.framework.BusiException;
-import com.zzq.cloud.sdk.framework.E;
+import com.zzq.cloud.platform.framework.BusiException;
+import com.zzq.cloud.platform.framework.E;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

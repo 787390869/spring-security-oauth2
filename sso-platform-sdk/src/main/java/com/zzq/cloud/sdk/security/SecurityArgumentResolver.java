@@ -1,8 +1,7 @@
 package com.zzq.cloud.sdk.security;
 
 import com.zzq.cloud.sdk.annotations.User;
-import com.zzq.cloud.sdk.base.BaseController;
-import com.zzq.cloud.sdk.base.SecurityUser;
+import com.zzq.cloud.sdk.framework.BaseController;
 import org.springframework.core.MethodParameter;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;

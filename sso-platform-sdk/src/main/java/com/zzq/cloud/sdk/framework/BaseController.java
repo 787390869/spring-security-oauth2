@@ -1,11 +1,13 @@
-package com.zzq.cloud.sdk.base;
+package com.zzq.cloud.sdk.framework;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zzq.cloud.sdk.utils.BeanUtil;
+import com.zzq.cloud.sdk.security.SecurityUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+
+import java.lang.reflect.Field;
 
 /**
  * @Author ZhangZiQiang
@@ -38,13 +40,13 @@ public class BaseController {
     /** 获取登录用户账户名 */
     protected String getUsername() {
         SecurityUser user = this.getUser();
-        return BeanUtil.isBlank(user) ? "未登录" : user.getUsername();
+        return isBlank(user) ? "未登录" : user.getUsername();
     }
 
     /** 获取登录用户的昵称 */
     protected String getNickname() {
         SecurityUser user = this.getUser();
-        return BeanUtil.isBlank(user) ? "未登录" : user.getNickname();
+        return isBlank(user) ? "未登录" : user.getNickname();
     }
 
     /** 获取当前用户Token */
@@ -72,5 +74,29 @@ public class BaseController {
         return this.getUser().getRoles().contains("admin") || this.getUser().getRoles().contains("ROLE_admin");
     }
 
+    /** 判断对象中的每一个属性是否为空 */
+    private static boolean isBlank(Object object) {
+        if (object == null) return true;
+        Class clazz = object.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+
+        boolean flag = true;
+        for (Field field : fields) {
+            field.setAccessible(true);
+            Object fieldValue = null;
+            String fieldName = null;
+            try {
+                fieldValue = field.get(object);
+                fieldName = field.getName();
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            if (fieldValue != null && !"serialVersionUID".equals(fieldName)) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
 
 }

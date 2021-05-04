@@ -1,6 +1,6 @@
-package com.zzq.cloud.sdk.converter;
+package com.zzq.cloud.platform.converter;
 
-import com.zzq.cloud.sdk.utils.DateUtil;
+import com.zzq.cloud.platform.util.DateUtil;
 import org.springframework.core.convert.converter.Converter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

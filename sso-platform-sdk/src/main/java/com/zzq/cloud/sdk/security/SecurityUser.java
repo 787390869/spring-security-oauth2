@@ -1,4 +1,4 @@
-package com.zzq.cloud.sdk.base;
+package com.zzq.cloud.sdk.security;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;

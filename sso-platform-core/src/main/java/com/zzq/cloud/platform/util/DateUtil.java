@@ -1,4 +1,4 @@
-package com.zzq.cloud.sdk.utils;
+package com.zzq.cloud.platform.util;
 
 import org.apache.commons.lang3.StringUtils;
 

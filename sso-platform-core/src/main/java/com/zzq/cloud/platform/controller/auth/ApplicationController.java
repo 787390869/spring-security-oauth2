@@ -1,7 +1,6 @@
 package com.zzq.cloud.platform.controller.auth;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zzq.cloud.platform.domain.auth.OAuthClientDetail;
 import com.zzq.cloud.platform.model.dto.sys.AddApplicationDto;
 import com.zzq.cloud.platform.model.dto.sys.AllotApplicationDto;
 import com.zzq.cloud.platform.model.dto.sys.EditApplicationDto;
@@ -11,13 +10,12 @@ import com.zzq.cloud.platform.model.vo.auth.ApplicationVo;
 import com.zzq.cloud.platform.model.vo.auth.OAuthClientDetailVo;
 import com.zzq.cloud.platform.model.vo.sys.UserApplicationVo;
 import com.zzq.cloud.platform.service.auth.IApplicationService;
-import com.zzq.cloud.sdk.base.BaseController;
+import com.zzq.cloud.sdk.framework.BaseController;
 import com.zzq.cloud.sdk.framework.IOAuthResource;
-import com.zzq.cloud.sdk.framework.Result;
+import com.zzq.cloud.platform.framework.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

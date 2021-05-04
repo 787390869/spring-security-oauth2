@@ -1,6 +1,6 @@
 package com.zzq.cloud.platform.model.enums;
 
-import com.zzq.cloud.sdk.framework.enums.IBaseEnum;
+import com.zzq.cloud.platform.framework.enums.IBaseEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

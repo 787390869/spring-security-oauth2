@@ -5,7 +5,7 @@ import com.zzq.cloud.platform.domain.sys.SysPermission;
 import com.zzq.cloud.platform.domain.sys.SysRole;
 import com.zzq.cloud.platform.mapper.sys.SysPermissionMapper;
 import com.zzq.cloud.platform.service.sys.IOAuthUserBuilder;
-import com.zzq.cloud.sdk.utils.ServletUtil;
+import com.zzq.cloud.platform.util.ServletUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;

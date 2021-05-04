@@ -1,7 +1,7 @@
 package com.zzq.cloud.platform.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.zzq.cloud.sdk.base.BaseController;
+import com.zzq.cloud.sdk.framework.BaseController;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 import java.util.Date;

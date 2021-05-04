@@ -5,7 +5,7 @@ import com.zzq.cloud.platform.model.dto.sys.QueryApplicationDto;
 import com.zzq.cloud.platform.model.vo.auth.ApplicationVo;
 import com.zzq.cloud.platform.model.vo.sys.SysAppGroupVo;
 import com.zzq.cloud.platform.service.sys.ISysAppGroupService;
-import com.zzq.cloud.sdk.base.BaseController;
+import com.zzq.cloud.sdk.framework.BaseController;
 import com.zzq.cloud.sdk.framework.IOAuthResource;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
