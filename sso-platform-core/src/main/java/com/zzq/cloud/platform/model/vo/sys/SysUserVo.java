@@ -65,4 +65,7 @@ public class SysUserVo extends BaseVo {
     @ApiModelProperty("角色")
     private List<String> roles;
 
+    @ApiModelProperty("应用列表")
+    private List<String> apps;
+
 }

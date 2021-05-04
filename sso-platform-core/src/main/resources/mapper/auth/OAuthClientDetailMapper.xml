@@ -94,7 +94,7 @@
             and ocd.client_id = #{clientId}
         </if>
         <if test="userId != null">
-            and sua.userId = #{userId} and sua.is_delete = 0
+            and sua.user_id = #{userId} and sua.is_delete = 0
         </if>
     </select>
 
@@ -106,6 +106,7 @@
                ocd.web_server_redirect_uri,
                ocd.icon,
                ocd.is_publish,
+               ocd.create_time,
                sag.group_name
         from oauth_client_details ocd
         left join sys_user_application sua on sua.client_id = ocd.client_id
@@ -120,6 +121,7 @@
         <if test="p.isPublish != null and p.isPublish != -1">
             and ocd.is_publish = #{p.isPublish}
         </if>
+        order by ocd.create_time asc
     </select>
 
     <select id="findAll" resultMap="OAuthClientVoMap">
@@ -131,6 +133,9 @@
         where ocd.is_delete = 0
         <if test="p.userId != null and p.userId != 0">
             and sua.user_id = #{p.userId}
+        </if>
+        <if test="p.clientName != null and p.clientName != ''">
+            and ocd.client_name like concat('%', #{p.clientName}, '%')
         </if>
         order by ocd.create_time asc
     </select>

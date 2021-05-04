@@ -1,5 +1,6 @@
 package com.zzq.cloud.platform.controller.sys;
 
+import com.zzq.cloud.platform.model.dto.sys.EditGroupDto;
 import com.zzq.cloud.platform.model.dto.sys.QueryApplicationDto;
 import com.zzq.cloud.platform.model.vo.auth.ApplicationVo;
 import com.zzq.cloud.platform.model.vo.sys.SysAppGroupVo;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -39,6 +41,18 @@ public class SysAppGroupController extends BaseController {
     @DeleteMapping("/{groupId}")
     public Integer removeOne(@PathVariable Long groupId) {
         return appGroupService.removeOne(groupId);
+    }
+
+    @ApiOperation("添加应用组")
+    @GetMapping("/add")
+    public Integer addGroup(@RequestParam(value = "groupName", required = true) String groupName) {
+        return appGroupService.addGroup(groupName);
+    }
+
+    @ApiOperation("编辑")
+    @PutMapping("/edit")
+    public Integer editAppGroup(@Valid @RequestBody EditGroupDto groupDto) {
+        return appGroupService.edit(groupDto);
     }
 
 }

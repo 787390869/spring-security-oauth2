@@ -51,6 +51,7 @@ public class SysPermissionController extends BaseController {
     @ApiOperation("权限分页查询")
     @GetMapping("/page")
     public IPage<PermissionVo> queryPage(QueryPermissionDto permissionDto) {
+        if(!this.isAdmin()) permissionDto.setClientId(this.getAppId());
         return permissionService.queryPage(permissionDto);
     }
 

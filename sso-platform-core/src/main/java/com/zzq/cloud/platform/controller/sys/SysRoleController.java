@@ -6,6 +6,7 @@ import com.zzq.cloud.platform.model.dto.sys.EditRoleDto;
 import com.zzq.cloud.platform.model.dto.sys.QueryRoleDto;
 import com.zzq.cloud.platform.model.vo.sys.SysRoleVo;
 import com.zzq.cloud.platform.service.sys.ISysRoleService;
+import com.zzq.cloud.sdk.base.BaseController;
 import com.zzq.cloud.sdk.framework.IOAuthResource;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,13 +25,14 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(IOAuthResource.PATH + "/sys/role")
-public class SysRoleController {
+public class SysRoleController extends BaseController {
 
     private final ISysRoleService roleService;
 
     @ApiOperation("分页查询")
     @GetMapping("/page")
     public IPage<SysRoleVo> queryPage(QueryRoleDto roleDto) {
+        if(!this.isAdmin()) roleDto.setClientId(this.getAppId());
         return roleService.queryPage(roleDto);
     }
 

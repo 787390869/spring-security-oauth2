@@ -4,6 +4,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zzq.cloud.platform.domain.sys.SysAppGroup;
+import com.zzq.cloud.platform.model.dto.sys.EditGroupDto;
 import com.zzq.cloud.platform.model.dto.sys.QueryApplicationDto;
 import com.zzq.cloud.platform.model.vo.auth.ApplicationVo;
 import com.zzq.cloud.platform.model.vo.sys.SysAppGroupVo;
@@ -20,4 +21,8 @@ public interface ISysAppGroupService extends IService<SysAppGroup> {
     List<SysAppGroupVo> findAll();
 
     Integer removeOne(Long groupId);
+
+    Integer addGroup(String groupName);
+
+    Integer edit(EditGroupDto groupDto);
 }

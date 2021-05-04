@@ -25,4 +25,18 @@
         <result property="clientId" column="client_id"/>
     </resultMap>
 
+    <select id="findByUserId" resultType="com.zzq.cloud.platform.model.vo.sys.UserApplicationVo">
+        select ocd.client_id, ocd.client_name, ocd.create_time
+        from sys_user_application sua
+        left join oauth_client_details ocd on ocd.client_id = sua.client_id
+        where ocd.is_delete = 0 and sua.user_id = #{userId}
+        order by ocd.create_time asc
+    </select>
+
+    <select id="findClientNameByUserId" resultType="string">
+        select ocd.client_name
+        from sys_user_application sua
+        left join oauth_client_details ocd on ocd.client_id = sua.client_id
+        where ocd.is_delete = 0 and sua.user_id = #{userId}
+    </select>
 </mapper>

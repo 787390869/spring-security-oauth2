@@ -4,18 +4,23 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zzq.cloud.platform.domain.auth.OAuthClientDetail;
+import com.zzq.cloud.platform.domain.auth.UserApplication;
 import com.zzq.cloud.platform.domain.sys.SysAppGroup;
 import com.zzq.cloud.platform.domain.sys.SysUser;
 import com.zzq.cloud.platform.mapper.auth.OAuthClientDetailMapper;
+import com.zzq.cloud.platform.mapper.auth.UserApplicationMapper;
 import com.zzq.cloud.platform.mapper.sys.SysAppGroupMapper;
 import com.zzq.cloud.platform.mapper.sys.SysUserMapper;
 import com.zzq.cloud.platform.model.dto.sys.AddApplicationDto;
+import com.zzq.cloud.platform.model.dto.sys.AllotApplicationDto;
 import com.zzq.cloud.platform.model.dto.sys.EditApplicationDto;
 import com.zzq.cloud.platform.model.dto.sys.QueryApplicationDto;
 import com.zzq.cloud.platform.model.enums.GrantTypeEnum;
 import com.zzq.cloud.platform.model.vo.auth.ApplicationVo;
 import com.zzq.cloud.platform.model.vo.auth.OAuthClientDetailVo;
+import com.zzq.cloud.platform.model.vo.sys.UserApplicationVo;
 import com.zzq.cloud.platform.service.auth.IApplicationService;
+import com.zzq.cloud.platform.service.sys.IUserApplicationService;
 import com.zzq.cloud.sdk.framework.BusiException;
 import com.zzq.cloud.sdk.utils.BeanUtil;
 import com.zzq.cloud.sdk.utils.Md5Util;
@@ -41,6 +46,9 @@ public class ApplicationServiceImpl extends ServiceImpl<OAuthClientDetailMapper,
     private final SysAppGroupMapper appGroupMapper;
     private final PasswordEncoder passwordEncoder;
     private final SysUserMapper userMapper;
+    private final UserApplicationMapper userApplicationMapper;
+
+    private final IUserApplicationService userApplicationService;
 
     @Override
     public List<ApplicationVo> queryList(QueryApplicationDto params) {
@@ -57,10 +65,11 @@ public class ApplicationServiceImpl extends ServiceImpl<OAuthClientDetailMapper,
                 vo.setId(group.getId());
                 vo.setGroupName(group.getGroupName());
                 vo.setApps(val);
+                vo.setCreateTime(group.getCreateTime());
                 groupsApps.add(vo);
             }
         });
-        return groupsApps;
+        return groupsApps.stream().sorted(Comparator.comparing(ApplicationVo::getCreateTime)).collect(Collectors.toList());
     }
 
     @Override
@@ -127,5 +136,25 @@ public class ApplicationServiceImpl extends ServiceImpl<OAuthClientDetailMapper,
         client.setIsPublish(0);
         client.setAuthorizedGrantTypes(String.join(",", applicationDto.getGrantTypes()));
         return clientDetailMapper.insert(client);
+    }
+
+    @Override
+    public Boolean allot(AllotApplicationDto applicationDto) {
+        QueryWrapper<UserApplication> query = new QueryWrapper<>();
+        query.eq("user_id", applicationDto.getUserId());
+        userApplicationService.remove(query);
+
+        List<UserApplication> userApplications = applicationDto.getAppIds().stream().map(appId -> {
+            UserApplication userApplication = new UserApplication();
+            userApplication.setUserId(applicationDto.getUserId());
+            userApplication.setClientId(appId);
+            return userApplication;
+        }).collect(Collectors.toList());
+        return userApplicationService.saveBatch(userApplications);
+    }
+
+    @Override
+    public List<UserApplicationVo> queryUserApplications(Long userId) {
+        return userApplicationMapper.findByUserId(userId);
     }
 }

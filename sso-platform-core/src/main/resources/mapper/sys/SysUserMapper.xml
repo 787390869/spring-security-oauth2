@@ -58,6 +58,7 @@
         <result property="state" column="state"/>
         <result property="createTime" column="create_time" />
         <collection property="roles" column="userId = user_id" select="findRolesByUserId" />
+        <collection property="apps" column="userId = user_id" select="com.zzq.cloud.platform.mapper.auth.UserApplicationMapper.findClientNameByUserId" />
     </resultMap>
 
     <!-- 用户 全属性结果集DetailVo -->

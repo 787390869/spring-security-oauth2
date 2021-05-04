@@ -31,6 +31,9 @@ public class EditApplicationDto {
     @ApiModelProperty("客户端名称")
     private String clientName;
 
+    @ApiModelProperty("应用组号")
+    private Long groupId;
+
     @ApiModelProperty("访问令牌过期时间")
     private Integer accessTokenValidity;
 
