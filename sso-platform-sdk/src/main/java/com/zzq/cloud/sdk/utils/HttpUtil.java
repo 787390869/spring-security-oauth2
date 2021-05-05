@@ -1,7 +1,6 @@
 package com.zzq.cloud.sdk.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.zzq.cloud.sdk.exception.PlatformSdkException;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -19,6 +18,7 @@ public class HttpUtil {
 
     private static final int HTTP_RESPONSE_CODE_OK = 200;
     private static final String CONTENT_TYPE_KEY = "Content-Type";
+    private static final String AUTH = "Authorization";
     private static final String CONTENT_TYPE = "application/json;charset=UTF-8";
 
     /**
@@ -38,7 +38,7 @@ public class HttpUtil {
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw new PlatformSdkException(0, "Request exception: " + e.getMessage(), e);
+            throw new RuntimeException("Request exception: " + e.getMessage(), e);
         }
     }
 
@@ -60,14 +60,38 @@ public class HttpUtil {
             request.requestBody(JSON.toJSONString(body));
             Connection.Response response = connection.execute();
             if (HTTP_RESPONSE_CODE_OK != response.statusCode()) {
-                throw new PlatformSdkException("Request net failure: " + response.statusCode() + "=" + response.statusMessage());
+                throw new RuntimeException("Request net failure: " + response.statusCode() + "=" + response.statusMessage());
             }
 
             return response.charset(StandardCharsets.UTF_8.name()).body();
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {
-            throw new PlatformSdkException(0, "Request exception: " + e.getMessage(), e);
+            throw new RuntimeException("Request exception: " + e.getMessage(), e);
+        }
+    }
+
+    public static String sendPost(String url, Object body, String accessToken) {
+        try {
+            Connection connection = HttpConnection.connect(url).ignoreContentType(true);
+            Connection.Request request = connection.request();
+            request.header(CONTENT_TYPE_KEY, CONTENT_TYPE);
+            request.header(AUTH, "Bearer " + accessToken);
+            request.postDataCharset(StandardCharsets.UTF_8.name());
+            request.method(Connection.Method.POST);
+            request.ignoreContentType(true);
+            request.ignoreHttpErrors(true);
+            request.requestBody(JSON.toJSONString(body));
+            Connection.Response response = connection.execute();
+            if (HTTP_RESPONSE_CODE_OK != response.statusCode()) {
+                throw new RuntimeException("Request net failure: " + response.statusCode() + "=" + response.statusMessage());
+            }
+
+            return response.charset(StandardCharsets.UTF_8.name()).body();
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Request exception: " + e.getMessage(), e);
         }
     }
 

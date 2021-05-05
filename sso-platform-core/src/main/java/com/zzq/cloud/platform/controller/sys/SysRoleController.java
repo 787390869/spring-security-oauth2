@@ -32,7 +32,7 @@ public class SysRoleController extends BaseController {
     @ApiOperation("分页查询")
     @GetMapping("/page")
     public IPage<SysRoleVo> queryPage(QueryRoleDto roleDto) {
-        if(!this.isAdmin()) roleDto.setClientId(this.getAppId());
+        //if(!this.isAdmin()) roleDto.setClientId(this.getAppId());
         return roleService.queryPage(roleDto);
     }
 

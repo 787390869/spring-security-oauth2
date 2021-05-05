@@ -32,6 +32,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -153,12 +155,18 @@ public class AuthServiceImpl implements IAuthService {
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(body, header);
         try {
             ResponseEntity<Map> result = restTemplate.exchange(securityModel.getOAuth2().getClient().getAccessTokenUri(), HttpMethod.POST, httpEntity, Map.class);
-            bodyMap = result.getBody();
             bodyMap.put("code", 200);
+            bodyMap.put("msg", "success");
+            bodyMap.put("data", result.getBody());
+        } catch (InvalidGrantException | HttpClientErrorException ex) {
+            ex.printStackTrace();
+            bodyMap.put("code", E.UN_AUTHORIZED);
+            bodyMap.put("msg", ex.getMessage());
+            return bodyMap;
         } catch (Exception e) {
-            bodyMap.put("error_msg", e.getMessage());
             e.printStackTrace();
             bodyMap.put("code", E.INVALID_PASSWORD);
+            bodyMap.put("msg", e.getMessage());
         }
         return bodyMap;
     }

@@ -22,6 +22,7 @@ public class ResponseBodyAdvice implements org.springframework.web.servlet.mvc.m
         if (methodParameter.getMethod().isAnnotationPresent(IgnoreResponseBodyAdvice.class)) return false;
         if (methodParameter.getDeclaringClass().isAnnotationPresent(IgnoreResponseBodyAdvice.class)) return false;
         if (methodParameter.getDeclaringClass().getName().contains("swagger")) return false;
+        if (methodParameter.getDeclaringClass().getName().contains("oauth2.provider")) return false;
         return true;
     }
 

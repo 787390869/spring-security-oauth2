@@ -2,48 +2,132 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>sso-platform</artifactId>
-        <groupId>com.zzq.cloud</groupId>
-        <version>1.0.0</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.zzq.cloud</groupId>
     <artifactId>sso-platform-sdk</artifactId>
+    <version>1.0.0</version>
 
+    <properties>
+        <!-- 编码 && 构建 -->
+        <java.version>1.8</java.version>
+        <maven.jar.plugin.version>3.3.1</maven.jar.plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- 公共包 -->
+        <fastjson.version>1.2.75</fastjson.version>
+        <lombok.version>1.18.18</lombok.version>
+
+        <!-- 工具包 -->
+        <jsoup.version>1.13.1</jsoup.version>
+        <bouncycastle.version>1.64</bouncycastle.version>
+        <apache.httpclient.version>4.5.13</apache.httpclient.version>
+        <apache.common.poi.version>5.0.0</apache.common.poi.version>
+        <apache.common.lang3.version>3.9</apache.common.lang3.version>
+        <apache.common.beanutil.version>1.9.4</apache.common.beanutil.version>
+        <google.kaptcha.version>2.3.2</google.kaptcha.version>
+        <google.googleauth.version>1.1.2</google.googleauth.version>
+        <zzq.redislock.version>1.0.0</zzq.redislock.version>
+
+        <!-- 接口文档 -->
+        <swagger2.version>2.9.2</swagger2.version>
+        <swagger2.component.version>1.6.2</swagger2.component.version>
+        <knife4j.version>2.0.8</knife4j.version>
+
+        <!-- 数据库访问 -->
+        <druid.version>1.1.22</druid.version>
+        <mysql.connector.version>8.0.20</mysql.connector.version>
+        <mysql.p6spy.version>3.8.7</mysql.p6spy.version>
+        <mybatis.plus.version>3.4.2</mybatis.plus.version>
+
+        <!-- springboot -->
+        <springboot.component.version>2.3.1.RELEASE</springboot.component.version>
+
+        <!-- springcloud -->
+        <spring.cloud.version>Hoxton.SR10</spring.cloud.version>
+        <spring.cloud.oauth2.version>2.2.5.RELEASE</spring.cloud.oauth2.version>
+        <spring.cloud.gateway.version>3.0.2</spring.cloud.gateway.version>
+        <spring.cloud.feign.version>3.0.2</spring.cloud.feign.version>
+        <spring.cloud.skywalking.logback.version>8.3.0</spring.cloud.skywalking.logback.version>
+        <spring.cloud.rocketmq.version>2.2.0</spring.cloud.rocketmq.version>
+        <spring.cloud.seata.version>1.4.0</spring.cloud.seata.version>
+        <spring.cloud.alibaba.seata.version>2.2.0.RELEASE</spring.cloud.alibaba.seata.version>
+        <spring.cloud.alibaba.version>2021.1</spring.cloud.alibaba.version>
+    </properties>
 
     <dependencies>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
+            <version>${apache.common.beanutil.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+            <version>${apache.common.lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger2.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>${springboot.component.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
+            <version>${spring.cloud.oauth2.version}</version>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>RELEASES PUBLISH</name>
+            <url>http://121.196.164.237:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

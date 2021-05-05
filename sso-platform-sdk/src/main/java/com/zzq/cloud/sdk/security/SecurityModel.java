@@ -15,9 +15,9 @@ public class SecurityModel {
 
     static final String Security_PREFIX = "security";
 
-    private String serverIp;
+    private String serverIp = "127.0.0.1";
 
-    private String serverAddress;
+    private String serverAddress = "http://127.0.0.1:9500";
 
     private OAuth2 oAuth2;
 
