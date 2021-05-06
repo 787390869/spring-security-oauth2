@@ -32,6 +32,8 @@ public class GoogleCodeServiceImpl implements IGoogleCodeService {
     @Override
     public Boolean isValidated(String key, Integer secret) {
         if (googleAuthenticator.authorize(key, secret)) {
+            System.out.println("用户验证码" + secret);
+            System.out.println("后台验证码:" + getSecretByKey(key));
             if (secret.compareTo(getSecretByKey(key)) == 0) return true;
             throw new BusiException(E.UN_AUTHORIZED, "验证码错误!");
         }
