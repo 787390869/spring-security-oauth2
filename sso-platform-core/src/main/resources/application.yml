@@ -11,7 +11,7 @@ spring:
   application:
     name: oauth-server
   profiles:
-    active: pro
+    active: dev
   mvc:
     static-path-pattern: /**
   resources:
