@@ -40,7 +40,7 @@ zzq:
   access:
     token:
       prefix: OPEN
-  google: true
+  google: false
   smart: true
 
 aliyun:
