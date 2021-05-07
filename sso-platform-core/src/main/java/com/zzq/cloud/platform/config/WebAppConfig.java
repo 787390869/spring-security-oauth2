@@ -1,5 +1,10 @@
 package com.zzq.cloud.platform.config;
 
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.IAcsClient;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.profile.IClientProfile;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -149,5 +154,13 @@ public class WebAppConfig implements WebMvcConfigurer {
         GoogleAuthenticator googleAuthenticator = new GoogleAuthenticator();
         googleAuthenticator.setCredentialRepository(googleCodeRepository);
         return googleAuthenticator;
+    }
+
+    @Bean(name = "acsClient")
+    public IAcsClient acsClient() throws ClientException {
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", AliYunConfig.accessKey, AliYunConfig.accessSecret);
+        IAcsClient acsClient = new DefaultAcsClient(profile);
+        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", "afs", "afs.aliyuncs.com");
+        return acsClient;
     }
 }

@@ -26,6 +26,20 @@
             <groupId>com.warrenstrange</groupId>
             <artifactId>googleauth</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.aliyun.alicom</groupId>
+            <artifactId>aliyun-java-sdk-afs</artifactId>
+            <version>1.0.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/aliyun-java-sdk-afs-1.0.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.alicom</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.0.6</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/aliyun-java-sdk-core-3.0.6.jar</systemPath>
+        </dependency>
 
         <dependency>
             <groupId>p6spy</groupId>

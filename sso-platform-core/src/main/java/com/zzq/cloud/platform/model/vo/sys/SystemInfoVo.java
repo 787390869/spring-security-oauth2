@@ -17,4 +17,7 @@ public class SystemInfoVo {
     @ApiModelProperty("是否鉴定谷歌code")
     private Boolean isCheckGoogleCode;
 
+    @ApiModelProperty("是否智能验证")
+    private Boolean isSmartVerify;
+
 }

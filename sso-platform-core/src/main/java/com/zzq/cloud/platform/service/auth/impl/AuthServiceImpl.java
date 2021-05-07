@@ -14,6 +14,7 @@ import com.zzq.cloud.platform.model.dto.auth.RefreshDto;
 import com.zzq.cloud.platform.model.vo.auth.AuthorizationVo;
 import com.zzq.cloud.platform.model.vo.auth.OAuthClientDetailVo;
 import com.zzq.cloud.platform.security.PlatformAuthorizeCodeService;
+import com.zzq.cloud.platform.service.auth.IAliYunService;
 import com.zzq.cloud.platform.service.auth.IGoogleCodeService;
 import com.zzq.cloud.platform.framework.BusiException;
 import com.zzq.cloud.sdk.security.SecurityModel;
@@ -59,6 +60,9 @@ public class AuthServiceImpl implements IAuthService {
 
     @Value("#{T(Boolean).parseBoolean('${zzq.google:false}')}")
     private Boolean isNeedCheckGoogleCode;
+    @Value("#{T(Boolean).parseBoolean('${zzq.smart:false}')}")
+    private Boolean isNeedSmartVerify;
+
 
     private final SecurityModel securityModel;
     private final StringRedisTemplate redisTemplate;
@@ -68,6 +72,7 @@ public class AuthServiceImpl implements IAuthService {
     private final OAuthClientDetailMapper clientDetailMapper;
     private final SysPermissionMapper permissionMapper;
 
+    private final IAliYunService aliYunService;
     private final IGoogleCodeService googleCodeService;
 
     private final AuthenticationManager manager;
@@ -86,6 +91,12 @@ public class AuthServiceImpl implements IAuthService {
 
             if (!googleCodeService.isValidated(user.getGoogleKey(), params.getGoogleCode()))
                 throw new BusiException(E.UN_AUTHORIZED, "验证码错误!");
+        }
+
+        // 如果需要智能验证
+        if (isNeedSmartVerify) {
+            if (!aliYunService.doSmartVerify(params))
+                throw new BusiException(E.UN_AUTHORIZED, "智能验证未通过!");
         }
 
         LinkedMultiValueMap<String, String> header = new LinkedMultiValueMap<>();

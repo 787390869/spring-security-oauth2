@@ -22,10 +22,13 @@ public class SystemController {
     @Value("#{T(Boolean).parseBoolean('${zzq.google:false}')}")
     private Boolean isCheckGoogleCode;
 
+    @Value("#{T(Boolean).parseBoolean('${zzq.smart:false}')}")
+    private Boolean isSmartVerify;
+
     @ApiOperation("获取系统信息")
     @GetMapping("/info")
     public SystemInfoVo systemInfo() {
-        return new SystemInfoVo(isCheckGoogleCode);
+        return new SystemInfoVo(isCheckGoogleCode, isSmartVerify);
     }
 
 }

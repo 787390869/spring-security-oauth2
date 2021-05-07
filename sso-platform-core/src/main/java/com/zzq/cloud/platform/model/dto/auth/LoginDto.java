@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginDto {
+public class LoginDto extends SmartVerifyDto {
 
     @NotBlank(message = "无效的AppID")
     @ApiModelProperty(value = "平台id", example = "client", required = true)
