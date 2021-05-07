@@ -22,7 +22,7 @@ public class LogoutRequest {
     private String logoutUri;
 
     public String buildUrl(String serverAddress) {
-        if (serverAddress.endsWith("/")) serverAddress = serverAddress.substring(0, serverAddress.length());
+        if (serverAddress.endsWith("/")) serverAddress = serverAddress.substring(0, serverAddress.length() - 1);
         return serverAddress + "/api/auth/logout";
     }
 

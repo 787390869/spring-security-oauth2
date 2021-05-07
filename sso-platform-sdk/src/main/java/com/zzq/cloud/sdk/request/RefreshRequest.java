@@ -8,30 +8,31 @@ import com.zzq.cloud.sdk.utils.HttpUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
-
 
 /**
- * @Author ZhangZiQiang
- * @CreateTime 2021/4/29
+ * @author ZZQ
+ * @date 2021/5/7 21:56
  */
 @Data
 @Slf4j
-public class AuthorizationCodeRequest {
+public class RefreshRequest {
 
     private String appId;
-    private String oAuthTokenUri;
-    private String authorizationCode;
+    private String appSecret;
+    private String refreshToken;
+
+    private String refreshTokenUri;
 
     public String buildUrl(String serverAddress) {
         if (serverAddress.endsWith("/")) serverAddress = serverAddress.substring(0, serverAddress.length() - 1);
-        return serverAddress + "/auth/code_login";
+        return serverAddress + "/auth/refresh";
     }
 
-    public static AccessToken getAccessToken(String serverAddress, String appId, String code) throws SSOException {
-        AuthorizationCodeRequest req = new AuthorizationCodeRequest();
+    public static AccessToken refreshToken(String serverAddress, String appId, String appSecret, String refreshToken) throws SSOException {
+        RefreshRequest req = new RefreshRequest();
         req.setAppId(appId);
-        req.setAuthorizationCode(code);
+        req.setAppSecret(appSecret);
+        req.setRefreshToken(refreshToken);
 
         try {
             String body = HttpUtil.sendPost(req.buildUrl(serverAddress), req);
@@ -41,7 +42,7 @@ public class AuthorizationCodeRequest {
                 return res.getObject("data", AccessToken.class);
             }
 
-            String message = String.format("GET ACCESS_TOKEN FAILED: CODE=%s, MSG=%s", resCode, res.getString("msg"));
+            String message = String.format("REFRESH TOKEN FAILED: CODE=%s, MSG=%s", resCode, res.getString("msg"));
             throw new SSOException(message);
         } catch (SSOException ssoException) {
             throw new SSOException(ssoException.getMessage());
@@ -52,8 +53,9 @@ public class AuthorizationCodeRequest {
     }
 
     public static void main(String[] args) {
-        AccessToken accessToken = AuthorizationCodeRequest.getAccessToken("http://localhost:9500",
-                "A107E56FB9CBBC3F453803BEDC70A72A", "OPEN-20210505174628");
+        AccessToken accessToken = refreshToken("http://localhost:9500", "A107E56FB9CBBC3F453803BEDC70A72A",
+                "secret", "28006278-8835-45bc-ac4d-2c9c2a7a08ea");
         System.out.println(JSONObject.toJSONString(accessToken));
     }
+
 }
