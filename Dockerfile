@@ -5,8 +5,8 @@ MAINTAINER zhangziqiang
 
 ENV APP_NAME="sso-platform"
 ENV JAVA_JVM_OPTS="-Xms256m -Xmx256m -Xmn128m"
-ENV google="true"
-ENV smart="true"
+ENV google=true
+ENV smart=true
 ADD $APP_NAME.jar /base/$APP_NAME.jar
 VOLUME /logs
 EXPOSE 9500
