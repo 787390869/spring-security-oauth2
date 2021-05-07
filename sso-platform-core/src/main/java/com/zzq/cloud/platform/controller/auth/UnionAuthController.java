@@ -45,7 +45,7 @@ public class UnionAuthController extends BaseController {
     @ApiOperation("刷新凭证")
     @PostMapping("/refresh")
     @IgnoreResponseBodyAdvice
-    public Map<String, Object> doRefresh(@Valid RefreshDto refreshDto) {
+    public Map<String, Object> doRefresh(@Valid @RequestBody RefreshDto refreshDto) {
         return authService.doRefresh(refreshDto);
     }
 

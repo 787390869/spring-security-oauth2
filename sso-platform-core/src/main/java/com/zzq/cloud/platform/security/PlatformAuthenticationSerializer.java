@@ -1,16 +1,19 @@
 package com.zzq.cloud.platform.security;
 
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.TokenRequest;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
@@ -39,8 +42,14 @@ public class PlatformAuthenticationSerializer implements ObjectDeserializer {
 
                 JSONObject jsonObject = (JSONObject) o;
                 OAuth2Request request = parseOAuth2Request(jsonObject);
-                UsernamePasswordAuthenticationToken authentication = jsonObject
-                    .getObject("userAuthentication", UsernamePasswordAuthenticationToken.class);
+                AbstractAuthenticationToken authentication;
+                try {
+                    authentication = jsonObject
+                            .getObject("userAuthentication", UsernamePasswordAuthenticationToken.class);
+                } catch (JSONException e) {
+                    authentication = jsonObject
+                            .getObject("userAuthentication", PreAuthenticatedAuthenticationToken.class);
+                }
                 return (T) new OAuth2Authentication(request, authentication);
             } catch (Exception e) {
                 e.printStackTrace();
