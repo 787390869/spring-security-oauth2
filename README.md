@@ -20,7 +20,7 @@
 - 4.拓展授权码模式,自行生成授权码,JSON传给前端,前端带code跳转到第三方应用
 
 **线上链接**
-- 1.[SSO开放平台](http://sso.zhangziqiang.cn/) 开放平台(SSO) 与 应用中心, 代码&&文件系统(Resource Server)就构成了OAuth2协议的应用关系 
+- 1.[SSO开放平台](http://sso.zhangziqiang.cn/) 开放平台(SSO) 与连接->应用中心->应用中心->代码&&文件系统(Resource Server)就构成了OAuth2协议的应用关系,点击代码系统就可进入 
 
 - 2.[前端应用接入文档](http://sso.zhangziqiang.cn/document/web)
 
