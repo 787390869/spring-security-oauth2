@@ -23,7 +23,7 @@
 **线上链接**
 - 1.[SSO开放平台](http://sso.zhangziqiang.cn/)
 
-- 2.[本站SDK+Vue Cli应用接入案例](http://www.zhangziqiang.cn:9600)
+- 2.[本站SDK+Vue Cli应用接入案例](http://www.zhangziqiang.cn:9600) 入口: SSO平台->应用中心->应用中心->基础应用->文件&&代码系统
 
 - 2.[前端应用接入文档](http://sso.zhangziqiang.cn/document/web)
 
