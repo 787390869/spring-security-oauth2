@@ -11,6 +11,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Map;
 
@@ -31,8 +33,8 @@ public class UnionAuthController extends BaseController {
     @ApiOperation("密码模式")
     @PostMapping("/login")
     @IgnoreResponseBodyAdvice
-    public Map<String, Object> doLogin(@Valid @RequestBody LoginDto loginDto) {
-        return authService.doLogin(loginDto);
+    public Map<String, Object> doLogin(@Valid @RequestBody LoginDto loginDto, HttpServletRequest req) {
+        return authService.doLogin(loginDto, req.getRemoteAddr());
     }
 
     @ApiOperation("应用授权模式")

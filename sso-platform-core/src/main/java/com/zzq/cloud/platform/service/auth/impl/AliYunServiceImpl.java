@@ -22,14 +22,14 @@ public class AliYunServiceImpl implements IAliYunService {
     private final IAcsClient acsClient;
 
     @Override
-    public Boolean doSmartVerify(LoginDto loginDto) {
+    public Boolean doSmartVerify(LoginDto loginDto, String ip) {
         AuthenticateSigRequest request = new AuthenticateSigRequest();
         request.setSessionId(loginDto.getSessionId());
         request.setSig(loginDto.getSig());
         request.setToken(loginDto.getToken());
         request.setScene(loginDto.getScene());
         request.setAppKey(AliYunConfig.appKey);
-        request.setRemoteIp("123.58.210.7");
+        request.setRemoteIp(ip);
 
         try {
             AuthenticateSigResponse response = acsClient.getAcsResponse(request);

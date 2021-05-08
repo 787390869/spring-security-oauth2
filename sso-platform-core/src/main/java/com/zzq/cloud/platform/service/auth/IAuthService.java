@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface IAuthService {
 
-    Map<String, Object> doLogin(LoginDto pmsLoginDto);
+    Map<String, Object> doLogin(LoginDto pmsLoginDto, String ip);
 
     Map<String, Object> doCodeLogin(CodeLoginDto codeLoginDto);
 

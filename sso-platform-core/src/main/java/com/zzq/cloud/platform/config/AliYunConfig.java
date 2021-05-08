@@ -17,11 +17,11 @@ public class AliYunConfig {
 
     public static final String ALIYUN_PREFIX = "aliyun";
 
-    public static String accessKey = "LTAI5tAgCqEM4GPvZzJzPDFh";
+    public static String accessKey = "yourAccessKey";
 
-    public static String accessSecret = "4Rv0OUp7inDTi8teIs2uWMYud9CvyE";
+    public static String accessSecret = "yourAccessSecret";
 
-    public static String appKey = "FFFF0N00000000009EAC";
+    public static String appKey = "yourAppKey";
 
     public void setAccessKey(String accessKey) {
         AliYunConfig.accessKey = accessKey;

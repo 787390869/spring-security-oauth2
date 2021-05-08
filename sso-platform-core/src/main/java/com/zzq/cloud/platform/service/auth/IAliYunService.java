@@ -8,6 +8,6 @@ import com.zzq.cloud.platform.model.dto.auth.LoginDto;
  */
 public interface IAliYunService {
 
-    Boolean doSmartVerify(LoginDto loginDto);
+    Boolean doSmartVerify(LoginDto loginDto, String ip);
 
 }

@@ -80,10 +80,10 @@ public class AuthServiceImpl implements IAuthService {
     private final OAuth2RequestFactory oAuth2RequestFactory;
 
     @Override
-    public Map<String, Object> doLogin(LoginDto params) {
+    public Map<String, Object> doLogin(LoginDto params, String ip) {
 
         // 如果配置需要验证码 则验证用户验证码
-        if (params.getGoogleCode().compareTo(123456) != 0 && isNeedCheckGoogleCode) {
+        if (isNeedCheckGoogleCode) {
             QueryWrapper<SysUser> query = new QueryWrapper<>();
             query.eq("username", params.getUsername());
             SysUser user = userMapper.selectOne(query);
@@ -94,8 +94,9 @@ public class AuthServiceImpl implements IAuthService {
         }
 
         // 如果需要智能验证
-        if (isNeedSmartVerify) {
-            if (!aliYunService.doSmartVerify(params))
+        // 因为这个验证10元/天死贵, 所以这里写死不去验证,如果需要就把false去掉
+        if (false && isNeedSmartVerify) {
+            if (!aliYunService.doSmartVerify(params, ip))
                 throw new BusiException(E.UN_AUTHORIZED, "智能验证未通过!");
         }
 
