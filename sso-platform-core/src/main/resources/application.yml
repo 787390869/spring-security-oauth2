@@ -44,6 +44,6 @@ zzq:
   smart: false
 
 aliyun:
-  appKey: FFFF0N00000000009EAC
-  accessKey: LTAI5tAgCqEM4GPvZzJzPDFh
-  accessSecret: 4Rv0OUp7inDTi8teIs2uWMYud9CvyE
+  appKey: yourAppKey
+  accessKey: yourAccessKey
+  accessSecret: yourAccessSecret
