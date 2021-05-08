@@ -40,8 +40,8 @@ zzq:
   access:
     token:
       prefix: OPEN
-  google: false
-  smart: true
+  google: true
+  smart: false
 
 aliyun:
   appKey: FFFF0N00000000009EAC
